@@ -22,10 +22,15 @@ mixin _$CheckoutEvent {
     required TResult Function(Product product) addItem,
     required TResult Function(Product product) removeItem,
     required TResult Function(Discount discount) addDiscount,
-    required TResult Function() removeDiscount,
-    required TResult Function(int tax) addTax,
-    required TResult Function() removeTax,
-    required TResult Function(int serviceCharge) addServiceCharge,
+    required TResult Function(Discount discount) removeDiscount,
+    required TResult Function(Tax tax) addTax,
+    required TResult Function(Tax tax) removeTax,
+    required TResult Function(Service service) addServiceCharge,
+    required TResult Function(Service service) removeServiceCharge,
+    required TResult Function() saveToDraft,
+    required TResult Function(int index) removeDraft,
+    required TResult Function(Product product, ProductQuantity quantity)
+        addItemDraft,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -34,10 +39,14 @@ mixin _$CheckoutEvent {
     TResult? Function(Product product)? addItem,
     TResult? Function(Product product)? removeItem,
     TResult? Function(Discount discount)? addDiscount,
-    TResult? Function()? removeDiscount,
-    TResult? Function(int tax)? addTax,
-    TResult? Function()? removeTax,
-    TResult? Function(int serviceCharge)? addServiceCharge,
+    TResult? Function(Discount discount)? removeDiscount,
+    TResult? Function(Tax tax)? addTax,
+    TResult? Function(Tax tax)? removeTax,
+    TResult? Function(Service service)? addServiceCharge,
+    TResult? Function(Service service)? removeServiceCharge,
+    TResult? Function()? saveToDraft,
+    TResult? Function(int index)? removeDraft,
+    TResult? Function(Product product, ProductQuantity quantity)? addItemDraft,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -46,10 +55,14 @@ mixin _$CheckoutEvent {
     TResult Function(Product product)? addItem,
     TResult Function(Product product)? removeItem,
     TResult Function(Discount discount)? addDiscount,
-    TResult Function()? removeDiscount,
-    TResult Function(int tax)? addTax,
-    TResult Function()? removeTax,
-    TResult Function(int serviceCharge)? addServiceCharge,
+    TResult Function(Discount discount)? removeDiscount,
+    TResult Function(Tax tax)? addTax,
+    TResult Function(Tax tax)? removeTax,
+    TResult Function(Service service)? addServiceCharge,
+    TResult Function(Service service)? removeServiceCharge,
+    TResult Function()? saveToDraft,
+    TResult Function(int index)? removeDraft,
+    TResult Function(Product product, ProductQuantity quantity)? addItemDraft,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -63,6 +76,10 @@ mixin _$CheckoutEvent {
     required TResult Function(_AddTax value) addTax,
     required TResult Function(_RemoveTax value) removeTax,
     required TResult Function(_AddServiceCharge value) addServiceCharge,
+    required TResult Function(_RemoveServiceCharge value) removeServiceCharge,
+    required TResult Function(_SaveToDraft value) saveToDraft,
+    required TResult Function(_RemoveDraft value) removeDraft,
+    required TResult Function(_AddItemDraft value) addItemDraft,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -75,6 +92,10 @@ mixin _$CheckoutEvent {
     TResult? Function(_AddTax value)? addTax,
     TResult? Function(_RemoveTax value)? removeTax,
     TResult? Function(_AddServiceCharge value)? addServiceCharge,
+    TResult? Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult? Function(_SaveToDraft value)? saveToDraft,
+    TResult? Function(_RemoveDraft value)? removeDraft,
+    TResult? Function(_AddItemDraft value)? addItemDraft,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -87,6 +108,10 @@ mixin _$CheckoutEvent {
     TResult Function(_AddTax value)? addTax,
     TResult Function(_RemoveTax value)? removeTax,
     TResult Function(_AddServiceCharge value)? addServiceCharge,
+    TResult Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult Function(_SaveToDraft value)? saveToDraft,
+    TResult Function(_RemoveDraft value)? removeDraft,
+    TResult Function(_AddItemDraft value)? addItemDraft,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -128,12 +153,18 @@ class __$$StartedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$StartedImpl implements _Started {
+class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
   const _$StartedImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'CheckoutEvent.started()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'CheckoutEvent.started'));
   }
 
   @override
@@ -152,10 +183,15 @@ class _$StartedImpl implements _Started {
     required TResult Function(Product product) addItem,
     required TResult Function(Product product) removeItem,
     required TResult Function(Discount discount) addDiscount,
-    required TResult Function() removeDiscount,
-    required TResult Function(int tax) addTax,
-    required TResult Function() removeTax,
-    required TResult Function(int serviceCharge) addServiceCharge,
+    required TResult Function(Discount discount) removeDiscount,
+    required TResult Function(Tax tax) addTax,
+    required TResult Function(Tax tax) removeTax,
+    required TResult Function(Service service) addServiceCharge,
+    required TResult Function(Service service) removeServiceCharge,
+    required TResult Function() saveToDraft,
+    required TResult Function(int index) removeDraft,
+    required TResult Function(Product product, ProductQuantity quantity)
+        addItemDraft,
   }) {
     return started();
   }
@@ -167,10 +203,14 @@ class _$StartedImpl implements _Started {
     TResult? Function(Product product)? addItem,
     TResult? Function(Product product)? removeItem,
     TResult? Function(Discount discount)? addDiscount,
-    TResult? Function()? removeDiscount,
-    TResult? Function(int tax)? addTax,
-    TResult? Function()? removeTax,
-    TResult? Function(int serviceCharge)? addServiceCharge,
+    TResult? Function(Discount discount)? removeDiscount,
+    TResult? Function(Tax tax)? addTax,
+    TResult? Function(Tax tax)? removeTax,
+    TResult? Function(Service service)? addServiceCharge,
+    TResult? Function(Service service)? removeServiceCharge,
+    TResult? Function()? saveToDraft,
+    TResult? Function(int index)? removeDraft,
+    TResult? Function(Product product, ProductQuantity quantity)? addItemDraft,
   }) {
     return started?.call();
   }
@@ -182,10 +222,14 @@ class _$StartedImpl implements _Started {
     TResult Function(Product product)? addItem,
     TResult Function(Product product)? removeItem,
     TResult Function(Discount discount)? addDiscount,
-    TResult Function()? removeDiscount,
-    TResult Function(int tax)? addTax,
-    TResult Function()? removeTax,
-    TResult Function(int serviceCharge)? addServiceCharge,
+    TResult Function(Discount discount)? removeDiscount,
+    TResult Function(Tax tax)? addTax,
+    TResult Function(Tax tax)? removeTax,
+    TResult Function(Service service)? addServiceCharge,
+    TResult Function(Service service)? removeServiceCharge,
+    TResult Function()? saveToDraft,
+    TResult Function(int index)? removeDraft,
+    TResult Function(Product product, ProductQuantity quantity)? addItemDraft,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -205,6 +249,10 @@ class _$StartedImpl implements _Started {
     required TResult Function(_AddTax value) addTax,
     required TResult Function(_RemoveTax value) removeTax,
     required TResult Function(_AddServiceCharge value) addServiceCharge,
+    required TResult Function(_RemoveServiceCharge value) removeServiceCharge,
+    required TResult Function(_SaveToDraft value) saveToDraft,
+    required TResult Function(_RemoveDraft value) removeDraft,
+    required TResult Function(_AddItemDraft value) addItemDraft,
   }) {
     return started(this);
   }
@@ -220,6 +268,10 @@ class _$StartedImpl implements _Started {
     TResult? Function(_AddTax value)? addTax,
     TResult? Function(_RemoveTax value)? removeTax,
     TResult? Function(_AddServiceCharge value)? addServiceCharge,
+    TResult? Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult? Function(_SaveToDraft value)? saveToDraft,
+    TResult? Function(_RemoveDraft value)? removeDraft,
+    TResult? Function(_AddItemDraft value)? addItemDraft,
   }) {
     return started?.call(this);
   }
@@ -235,6 +287,10 @@ class _$StartedImpl implements _Started {
     TResult Function(_AddTax value)? addTax,
     TResult Function(_RemoveTax value)? removeTax,
     TResult Function(_AddServiceCharge value)? addServiceCharge,
+    TResult Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult Function(_SaveToDraft value)? saveToDraft,
+    TResult Function(_RemoveDraft value)? removeDraft,
+    TResult Function(_AddItemDraft value)? addItemDraft,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -281,15 +337,23 @@ class __$$AddItemImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AddItemImpl implements _AddItem {
+class _$AddItemImpl with DiagnosticableTreeMixin implements _AddItem {
   const _$AddItemImpl(this.product);
 
   @override
   final Product product;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'CheckoutEvent.addItem(product: $product)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'CheckoutEvent.addItem'))
+      ..add(DiagnosticsProperty('product', product));
   }
 
   @override
@@ -316,10 +380,15 @@ class _$AddItemImpl implements _AddItem {
     required TResult Function(Product product) addItem,
     required TResult Function(Product product) removeItem,
     required TResult Function(Discount discount) addDiscount,
-    required TResult Function() removeDiscount,
-    required TResult Function(int tax) addTax,
-    required TResult Function() removeTax,
-    required TResult Function(int serviceCharge) addServiceCharge,
+    required TResult Function(Discount discount) removeDiscount,
+    required TResult Function(Tax tax) addTax,
+    required TResult Function(Tax tax) removeTax,
+    required TResult Function(Service service) addServiceCharge,
+    required TResult Function(Service service) removeServiceCharge,
+    required TResult Function() saveToDraft,
+    required TResult Function(int index) removeDraft,
+    required TResult Function(Product product, ProductQuantity quantity)
+        addItemDraft,
   }) {
     return addItem(product);
   }
@@ -331,10 +400,14 @@ class _$AddItemImpl implements _AddItem {
     TResult? Function(Product product)? addItem,
     TResult? Function(Product product)? removeItem,
     TResult? Function(Discount discount)? addDiscount,
-    TResult? Function()? removeDiscount,
-    TResult? Function(int tax)? addTax,
-    TResult? Function()? removeTax,
-    TResult? Function(int serviceCharge)? addServiceCharge,
+    TResult? Function(Discount discount)? removeDiscount,
+    TResult? Function(Tax tax)? addTax,
+    TResult? Function(Tax tax)? removeTax,
+    TResult? Function(Service service)? addServiceCharge,
+    TResult? Function(Service service)? removeServiceCharge,
+    TResult? Function()? saveToDraft,
+    TResult? Function(int index)? removeDraft,
+    TResult? Function(Product product, ProductQuantity quantity)? addItemDraft,
   }) {
     return addItem?.call(product);
   }
@@ -346,10 +419,14 @@ class _$AddItemImpl implements _AddItem {
     TResult Function(Product product)? addItem,
     TResult Function(Product product)? removeItem,
     TResult Function(Discount discount)? addDiscount,
-    TResult Function()? removeDiscount,
-    TResult Function(int tax)? addTax,
-    TResult Function()? removeTax,
-    TResult Function(int serviceCharge)? addServiceCharge,
+    TResult Function(Discount discount)? removeDiscount,
+    TResult Function(Tax tax)? addTax,
+    TResult Function(Tax tax)? removeTax,
+    TResult Function(Service service)? addServiceCharge,
+    TResult Function(Service service)? removeServiceCharge,
+    TResult Function()? saveToDraft,
+    TResult Function(int index)? removeDraft,
+    TResult Function(Product product, ProductQuantity quantity)? addItemDraft,
     required TResult orElse(),
   }) {
     if (addItem != null) {
@@ -369,6 +446,10 @@ class _$AddItemImpl implements _AddItem {
     required TResult Function(_AddTax value) addTax,
     required TResult Function(_RemoveTax value) removeTax,
     required TResult Function(_AddServiceCharge value) addServiceCharge,
+    required TResult Function(_RemoveServiceCharge value) removeServiceCharge,
+    required TResult Function(_SaveToDraft value) saveToDraft,
+    required TResult Function(_RemoveDraft value) removeDraft,
+    required TResult Function(_AddItemDraft value) addItemDraft,
   }) {
     return addItem(this);
   }
@@ -384,6 +465,10 @@ class _$AddItemImpl implements _AddItem {
     TResult? Function(_AddTax value)? addTax,
     TResult? Function(_RemoveTax value)? removeTax,
     TResult? Function(_AddServiceCharge value)? addServiceCharge,
+    TResult? Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult? Function(_SaveToDraft value)? saveToDraft,
+    TResult? Function(_RemoveDraft value)? removeDraft,
+    TResult? Function(_AddItemDraft value)? addItemDraft,
   }) {
     return addItem?.call(this);
   }
@@ -399,6 +484,10 @@ class _$AddItemImpl implements _AddItem {
     TResult Function(_AddTax value)? addTax,
     TResult Function(_RemoveTax value)? removeTax,
     TResult Function(_AddServiceCharge value)? addServiceCharge,
+    TResult Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult Function(_SaveToDraft value)? saveToDraft,
+    TResult Function(_RemoveDraft value)? removeDraft,
+    TResult Function(_AddItemDraft value)? addItemDraft,
     required TResult orElse(),
   }) {
     if (addItem != null) {
@@ -450,15 +539,23 @@ class __$$RemoveItemImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$RemoveItemImpl implements _RemoveItem {
+class _$RemoveItemImpl with DiagnosticableTreeMixin implements _RemoveItem {
   const _$RemoveItemImpl(this.product);
 
   @override
   final Product product;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'CheckoutEvent.removeItem(product: $product)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'CheckoutEvent.removeItem'))
+      ..add(DiagnosticsProperty('product', product));
   }
 
   @override
@@ -485,10 +582,15 @@ class _$RemoveItemImpl implements _RemoveItem {
     required TResult Function(Product product) addItem,
     required TResult Function(Product product) removeItem,
     required TResult Function(Discount discount) addDiscount,
-    required TResult Function() removeDiscount,
-    required TResult Function(int tax) addTax,
-    required TResult Function() removeTax,
-    required TResult Function(int serviceCharge) addServiceCharge,
+    required TResult Function(Discount discount) removeDiscount,
+    required TResult Function(Tax tax) addTax,
+    required TResult Function(Tax tax) removeTax,
+    required TResult Function(Service service) addServiceCharge,
+    required TResult Function(Service service) removeServiceCharge,
+    required TResult Function() saveToDraft,
+    required TResult Function(int index) removeDraft,
+    required TResult Function(Product product, ProductQuantity quantity)
+        addItemDraft,
   }) {
     return removeItem(product);
   }
@@ -500,10 +602,14 @@ class _$RemoveItemImpl implements _RemoveItem {
     TResult? Function(Product product)? addItem,
     TResult? Function(Product product)? removeItem,
     TResult? Function(Discount discount)? addDiscount,
-    TResult? Function()? removeDiscount,
-    TResult? Function(int tax)? addTax,
-    TResult? Function()? removeTax,
-    TResult? Function(int serviceCharge)? addServiceCharge,
+    TResult? Function(Discount discount)? removeDiscount,
+    TResult? Function(Tax tax)? addTax,
+    TResult? Function(Tax tax)? removeTax,
+    TResult? Function(Service service)? addServiceCharge,
+    TResult? Function(Service service)? removeServiceCharge,
+    TResult? Function()? saveToDraft,
+    TResult? Function(int index)? removeDraft,
+    TResult? Function(Product product, ProductQuantity quantity)? addItemDraft,
   }) {
     return removeItem?.call(product);
   }
@@ -515,10 +621,14 @@ class _$RemoveItemImpl implements _RemoveItem {
     TResult Function(Product product)? addItem,
     TResult Function(Product product)? removeItem,
     TResult Function(Discount discount)? addDiscount,
-    TResult Function()? removeDiscount,
-    TResult Function(int tax)? addTax,
-    TResult Function()? removeTax,
-    TResult Function(int serviceCharge)? addServiceCharge,
+    TResult Function(Discount discount)? removeDiscount,
+    TResult Function(Tax tax)? addTax,
+    TResult Function(Tax tax)? removeTax,
+    TResult Function(Service service)? addServiceCharge,
+    TResult Function(Service service)? removeServiceCharge,
+    TResult Function()? saveToDraft,
+    TResult Function(int index)? removeDraft,
+    TResult Function(Product product, ProductQuantity quantity)? addItemDraft,
     required TResult orElse(),
   }) {
     if (removeItem != null) {
@@ -538,6 +648,10 @@ class _$RemoveItemImpl implements _RemoveItem {
     required TResult Function(_AddTax value) addTax,
     required TResult Function(_RemoveTax value) removeTax,
     required TResult Function(_AddServiceCharge value) addServiceCharge,
+    required TResult Function(_RemoveServiceCharge value) removeServiceCharge,
+    required TResult Function(_SaveToDraft value) saveToDraft,
+    required TResult Function(_RemoveDraft value) removeDraft,
+    required TResult Function(_AddItemDraft value) addItemDraft,
   }) {
     return removeItem(this);
   }
@@ -553,6 +667,10 @@ class _$RemoveItemImpl implements _RemoveItem {
     TResult? Function(_AddTax value)? addTax,
     TResult? Function(_RemoveTax value)? removeTax,
     TResult? Function(_AddServiceCharge value)? addServiceCharge,
+    TResult? Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult? Function(_SaveToDraft value)? saveToDraft,
+    TResult? Function(_RemoveDraft value)? removeDraft,
+    TResult? Function(_AddItemDraft value)? addItemDraft,
   }) {
     return removeItem?.call(this);
   }
@@ -568,6 +686,10 @@ class _$RemoveItemImpl implements _RemoveItem {
     TResult Function(_AddTax value)? addTax,
     TResult Function(_RemoveTax value)? removeTax,
     TResult Function(_AddServiceCharge value)? addServiceCharge,
+    TResult Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult Function(_SaveToDraft value)? saveToDraft,
+    TResult Function(_RemoveDraft value)? removeDraft,
+    TResult Function(_AddItemDraft value)? addItemDraft,
     required TResult orElse(),
   }) {
     if (removeItem != null) {
@@ -619,15 +741,23 @@ class __$$AddDiscountImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AddDiscountImpl implements _AddDiscount {
+class _$AddDiscountImpl with DiagnosticableTreeMixin implements _AddDiscount {
   const _$AddDiscountImpl(this.discount);
 
   @override
   final Discount discount;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'CheckoutEvent.addDiscount(discount: $discount)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'CheckoutEvent.addDiscount'))
+      ..add(DiagnosticsProperty('discount', discount));
   }
 
   @override
@@ -655,10 +785,15 @@ class _$AddDiscountImpl implements _AddDiscount {
     required TResult Function(Product product) addItem,
     required TResult Function(Product product) removeItem,
     required TResult Function(Discount discount) addDiscount,
-    required TResult Function() removeDiscount,
-    required TResult Function(int tax) addTax,
-    required TResult Function() removeTax,
-    required TResult Function(int serviceCharge) addServiceCharge,
+    required TResult Function(Discount discount) removeDiscount,
+    required TResult Function(Tax tax) addTax,
+    required TResult Function(Tax tax) removeTax,
+    required TResult Function(Service service) addServiceCharge,
+    required TResult Function(Service service) removeServiceCharge,
+    required TResult Function() saveToDraft,
+    required TResult Function(int index) removeDraft,
+    required TResult Function(Product product, ProductQuantity quantity)
+        addItemDraft,
   }) {
     return addDiscount(discount);
   }
@@ -670,10 +805,14 @@ class _$AddDiscountImpl implements _AddDiscount {
     TResult? Function(Product product)? addItem,
     TResult? Function(Product product)? removeItem,
     TResult? Function(Discount discount)? addDiscount,
-    TResult? Function()? removeDiscount,
-    TResult? Function(int tax)? addTax,
-    TResult? Function()? removeTax,
-    TResult? Function(int serviceCharge)? addServiceCharge,
+    TResult? Function(Discount discount)? removeDiscount,
+    TResult? Function(Tax tax)? addTax,
+    TResult? Function(Tax tax)? removeTax,
+    TResult? Function(Service service)? addServiceCharge,
+    TResult? Function(Service service)? removeServiceCharge,
+    TResult? Function()? saveToDraft,
+    TResult? Function(int index)? removeDraft,
+    TResult? Function(Product product, ProductQuantity quantity)? addItemDraft,
   }) {
     return addDiscount?.call(discount);
   }
@@ -685,10 +824,14 @@ class _$AddDiscountImpl implements _AddDiscount {
     TResult Function(Product product)? addItem,
     TResult Function(Product product)? removeItem,
     TResult Function(Discount discount)? addDiscount,
-    TResult Function()? removeDiscount,
-    TResult Function(int tax)? addTax,
-    TResult Function()? removeTax,
-    TResult Function(int serviceCharge)? addServiceCharge,
+    TResult Function(Discount discount)? removeDiscount,
+    TResult Function(Tax tax)? addTax,
+    TResult Function(Tax tax)? removeTax,
+    TResult Function(Service service)? addServiceCharge,
+    TResult Function(Service service)? removeServiceCharge,
+    TResult Function()? saveToDraft,
+    TResult Function(int index)? removeDraft,
+    TResult Function(Product product, ProductQuantity quantity)? addItemDraft,
     required TResult orElse(),
   }) {
     if (addDiscount != null) {
@@ -708,6 +851,10 @@ class _$AddDiscountImpl implements _AddDiscount {
     required TResult Function(_AddTax value) addTax,
     required TResult Function(_RemoveTax value) removeTax,
     required TResult Function(_AddServiceCharge value) addServiceCharge,
+    required TResult Function(_RemoveServiceCharge value) removeServiceCharge,
+    required TResult Function(_SaveToDraft value) saveToDraft,
+    required TResult Function(_RemoveDraft value) removeDraft,
+    required TResult Function(_AddItemDraft value) addItemDraft,
   }) {
     return addDiscount(this);
   }
@@ -723,6 +870,10 @@ class _$AddDiscountImpl implements _AddDiscount {
     TResult? Function(_AddTax value)? addTax,
     TResult? Function(_RemoveTax value)? removeTax,
     TResult? Function(_AddServiceCharge value)? addServiceCharge,
+    TResult? Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult? Function(_SaveToDraft value)? saveToDraft,
+    TResult? Function(_RemoveDraft value)? removeDraft,
+    TResult? Function(_AddItemDraft value)? addItemDraft,
   }) {
     return addDiscount?.call(this);
   }
@@ -738,6 +889,10 @@ class _$AddDiscountImpl implements _AddDiscount {
     TResult Function(_AddTax value)? addTax,
     TResult Function(_RemoveTax value)? removeTax,
     TResult Function(_AddServiceCharge value)? addServiceCharge,
+    TResult Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult Function(_SaveToDraft value)? saveToDraft,
+    TResult Function(_RemoveDraft value)? removeDraft,
+    TResult Function(_AddItemDraft value)? addItemDraft,
     required TResult orElse(),
   }) {
     if (addDiscount != null) {
@@ -761,6 +916,8 @@ abstract class _$$RemoveDiscountImplCopyWith<$Res> {
   factory _$$RemoveDiscountImplCopyWith(_$RemoveDiscountImpl value,
           $Res Function(_$RemoveDiscountImpl) then) =
       __$$RemoveDiscountImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Discount discount});
 }
 
 /// @nodoc
@@ -770,26 +927,62 @@ class __$$RemoveDiscountImplCopyWithImpl<$Res>
   __$$RemoveDiscountImplCopyWithImpl(
       _$RemoveDiscountImpl _value, $Res Function(_$RemoveDiscountImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? discount = null,
+  }) {
+    return _then(_$RemoveDiscountImpl(
+      null == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as Discount,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$RemoveDiscountImpl implements _RemoveDiscount {
-  const _$RemoveDiscountImpl();
+class _$RemoveDiscountImpl
+    with DiagnosticableTreeMixin
+    implements _RemoveDiscount {
+  const _$RemoveDiscountImpl(this.discount);
 
   @override
-  String toString() {
-    return 'CheckoutEvent.removeDiscount()';
+  final Discount discount;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'CheckoutEvent.removeDiscount(discount: $discount)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'CheckoutEvent.removeDiscount'))
+      ..add(DiagnosticsProperty('discount', discount));
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$RemoveDiscountImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$RemoveDiscountImpl &&
+            (identical(other.discount, discount) ||
+                other.discount == discount));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, discount);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RemoveDiscountImplCopyWith<_$RemoveDiscountImpl> get copyWith =>
+      __$$RemoveDiscountImplCopyWithImpl<_$RemoveDiscountImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -798,12 +991,17 @@ class _$RemoveDiscountImpl implements _RemoveDiscount {
     required TResult Function(Product product) addItem,
     required TResult Function(Product product) removeItem,
     required TResult Function(Discount discount) addDiscount,
-    required TResult Function() removeDiscount,
-    required TResult Function(int tax) addTax,
-    required TResult Function() removeTax,
-    required TResult Function(int serviceCharge) addServiceCharge,
+    required TResult Function(Discount discount) removeDiscount,
+    required TResult Function(Tax tax) addTax,
+    required TResult Function(Tax tax) removeTax,
+    required TResult Function(Service service) addServiceCharge,
+    required TResult Function(Service service) removeServiceCharge,
+    required TResult Function() saveToDraft,
+    required TResult Function(int index) removeDraft,
+    required TResult Function(Product product, ProductQuantity quantity)
+        addItemDraft,
   }) {
-    return removeDiscount();
+    return removeDiscount(discount);
   }
 
   @override
@@ -813,12 +1011,16 @@ class _$RemoveDiscountImpl implements _RemoveDiscount {
     TResult? Function(Product product)? addItem,
     TResult? Function(Product product)? removeItem,
     TResult? Function(Discount discount)? addDiscount,
-    TResult? Function()? removeDiscount,
-    TResult? Function(int tax)? addTax,
-    TResult? Function()? removeTax,
-    TResult? Function(int serviceCharge)? addServiceCharge,
+    TResult? Function(Discount discount)? removeDiscount,
+    TResult? Function(Tax tax)? addTax,
+    TResult? Function(Tax tax)? removeTax,
+    TResult? Function(Service service)? addServiceCharge,
+    TResult? Function(Service service)? removeServiceCharge,
+    TResult? Function()? saveToDraft,
+    TResult? Function(int index)? removeDraft,
+    TResult? Function(Product product, ProductQuantity quantity)? addItemDraft,
   }) {
-    return removeDiscount?.call();
+    return removeDiscount?.call(discount);
   }
 
   @override
@@ -828,14 +1030,18 @@ class _$RemoveDiscountImpl implements _RemoveDiscount {
     TResult Function(Product product)? addItem,
     TResult Function(Product product)? removeItem,
     TResult Function(Discount discount)? addDiscount,
-    TResult Function()? removeDiscount,
-    TResult Function(int tax)? addTax,
-    TResult Function()? removeTax,
-    TResult Function(int serviceCharge)? addServiceCharge,
+    TResult Function(Discount discount)? removeDiscount,
+    TResult Function(Tax tax)? addTax,
+    TResult Function(Tax tax)? removeTax,
+    TResult Function(Service service)? addServiceCharge,
+    TResult Function(Service service)? removeServiceCharge,
+    TResult Function()? saveToDraft,
+    TResult Function(int index)? removeDraft,
+    TResult Function(Product product, ProductQuantity quantity)? addItemDraft,
     required TResult orElse(),
   }) {
     if (removeDiscount != null) {
-      return removeDiscount();
+      return removeDiscount(discount);
     }
     return orElse();
   }
@@ -851,6 +1057,10 @@ class _$RemoveDiscountImpl implements _RemoveDiscount {
     required TResult Function(_AddTax value) addTax,
     required TResult Function(_RemoveTax value) removeTax,
     required TResult Function(_AddServiceCharge value) addServiceCharge,
+    required TResult Function(_RemoveServiceCharge value) removeServiceCharge,
+    required TResult Function(_SaveToDraft value) saveToDraft,
+    required TResult Function(_RemoveDraft value) removeDraft,
+    required TResult Function(_AddItemDraft value) addItemDraft,
   }) {
     return removeDiscount(this);
   }
@@ -866,6 +1076,10 @@ class _$RemoveDiscountImpl implements _RemoveDiscount {
     TResult? Function(_AddTax value)? addTax,
     TResult? Function(_RemoveTax value)? removeTax,
     TResult? Function(_AddServiceCharge value)? addServiceCharge,
+    TResult? Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult? Function(_SaveToDraft value)? saveToDraft,
+    TResult? Function(_RemoveDraft value)? removeDraft,
+    TResult? Function(_AddItemDraft value)? addItemDraft,
   }) {
     return removeDiscount?.call(this);
   }
@@ -881,6 +1095,10 @@ class _$RemoveDiscountImpl implements _RemoveDiscount {
     TResult Function(_AddTax value)? addTax,
     TResult Function(_RemoveTax value)? removeTax,
     TResult Function(_AddServiceCharge value)? addServiceCharge,
+    TResult Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult Function(_SaveToDraft value)? saveToDraft,
+    TResult Function(_RemoveDraft value)? removeDraft,
+    TResult Function(_AddItemDraft value)? addItemDraft,
     required TResult orElse(),
   }) {
     if (removeDiscount != null) {
@@ -891,7 +1109,12 @@ class _$RemoveDiscountImpl implements _RemoveDiscount {
 }
 
 abstract class _RemoveDiscount implements CheckoutEvent {
-  const factory _RemoveDiscount() = _$RemoveDiscountImpl;
+  const factory _RemoveDiscount(final Discount discount) = _$RemoveDiscountImpl;
+
+  Discount get discount;
+  @JsonKey(ignore: true)
+  _$$RemoveDiscountImplCopyWith<_$RemoveDiscountImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -900,7 +1123,7 @@ abstract class _$$AddTaxImplCopyWith<$Res> {
           _$AddTaxImpl value, $Res Function(_$AddTaxImpl) then) =
       __$$AddTaxImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int tax});
+  $Res call({Tax tax});
 }
 
 /// @nodoc
@@ -920,22 +1143,30 @@ class __$$AddTaxImplCopyWithImpl<$Res>
       null == tax
           ? _value.tax
           : tax // ignore: cast_nullable_to_non_nullable
-              as int,
+              as Tax,
     ));
   }
 }
 
 /// @nodoc
 
-class _$AddTaxImpl implements _AddTax {
+class _$AddTaxImpl with DiagnosticableTreeMixin implements _AddTax {
   const _$AddTaxImpl(this.tax);
 
   @override
-  final int tax;
+  final Tax tax;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'CheckoutEvent.addTax(tax: $tax)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'CheckoutEvent.addTax'))
+      ..add(DiagnosticsProperty('tax', tax));
   }
 
   @override
@@ -962,10 +1193,15 @@ class _$AddTaxImpl implements _AddTax {
     required TResult Function(Product product) addItem,
     required TResult Function(Product product) removeItem,
     required TResult Function(Discount discount) addDiscount,
-    required TResult Function() removeDiscount,
-    required TResult Function(int tax) addTax,
-    required TResult Function() removeTax,
-    required TResult Function(int serviceCharge) addServiceCharge,
+    required TResult Function(Discount discount) removeDiscount,
+    required TResult Function(Tax tax) addTax,
+    required TResult Function(Tax tax) removeTax,
+    required TResult Function(Service service) addServiceCharge,
+    required TResult Function(Service service) removeServiceCharge,
+    required TResult Function() saveToDraft,
+    required TResult Function(int index) removeDraft,
+    required TResult Function(Product product, ProductQuantity quantity)
+        addItemDraft,
   }) {
     return addTax(tax);
   }
@@ -977,10 +1213,14 @@ class _$AddTaxImpl implements _AddTax {
     TResult? Function(Product product)? addItem,
     TResult? Function(Product product)? removeItem,
     TResult? Function(Discount discount)? addDiscount,
-    TResult? Function()? removeDiscount,
-    TResult? Function(int tax)? addTax,
-    TResult? Function()? removeTax,
-    TResult? Function(int serviceCharge)? addServiceCharge,
+    TResult? Function(Discount discount)? removeDiscount,
+    TResult? Function(Tax tax)? addTax,
+    TResult? Function(Tax tax)? removeTax,
+    TResult? Function(Service service)? addServiceCharge,
+    TResult? Function(Service service)? removeServiceCharge,
+    TResult? Function()? saveToDraft,
+    TResult? Function(int index)? removeDraft,
+    TResult? Function(Product product, ProductQuantity quantity)? addItemDraft,
   }) {
     return addTax?.call(tax);
   }
@@ -992,10 +1232,14 @@ class _$AddTaxImpl implements _AddTax {
     TResult Function(Product product)? addItem,
     TResult Function(Product product)? removeItem,
     TResult Function(Discount discount)? addDiscount,
-    TResult Function()? removeDiscount,
-    TResult Function(int tax)? addTax,
-    TResult Function()? removeTax,
-    TResult Function(int serviceCharge)? addServiceCharge,
+    TResult Function(Discount discount)? removeDiscount,
+    TResult Function(Tax tax)? addTax,
+    TResult Function(Tax tax)? removeTax,
+    TResult Function(Service service)? addServiceCharge,
+    TResult Function(Service service)? removeServiceCharge,
+    TResult Function()? saveToDraft,
+    TResult Function(int index)? removeDraft,
+    TResult Function(Product product, ProductQuantity quantity)? addItemDraft,
     required TResult orElse(),
   }) {
     if (addTax != null) {
@@ -1015,6 +1259,10 @@ class _$AddTaxImpl implements _AddTax {
     required TResult Function(_AddTax value) addTax,
     required TResult Function(_RemoveTax value) removeTax,
     required TResult Function(_AddServiceCharge value) addServiceCharge,
+    required TResult Function(_RemoveServiceCharge value) removeServiceCharge,
+    required TResult Function(_SaveToDraft value) saveToDraft,
+    required TResult Function(_RemoveDraft value) removeDraft,
+    required TResult Function(_AddItemDraft value) addItemDraft,
   }) {
     return addTax(this);
   }
@@ -1030,6 +1278,10 @@ class _$AddTaxImpl implements _AddTax {
     TResult? Function(_AddTax value)? addTax,
     TResult? Function(_RemoveTax value)? removeTax,
     TResult? Function(_AddServiceCharge value)? addServiceCharge,
+    TResult? Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult? Function(_SaveToDraft value)? saveToDraft,
+    TResult? Function(_RemoveDraft value)? removeDraft,
+    TResult? Function(_AddItemDraft value)? addItemDraft,
   }) {
     return addTax?.call(this);
   }
@@ -1045,6 +1297,10 @@ class _$AddTaxImpl implements _AddTax {
     TResult Function(_AddTax value)? addTax,
     TResult Function(_RemoveTax value)? removeTax,
     TResult Function(_AddServiceCharge value)? addServiceCharge,
+    TResult Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult Function(_SaveToDraft value)? saveToDraft,
+    TResult Function(_RemoveDraft value)? removeDraft,
+    TResult Function(_AddItemDraft value)? addItemDraft,
     required TResult orElse(),
   }) {
     if (addTax != null) {
@@ -1055,9 +1311,9 @@ class _$AddTaxImpl implements _AddTax {
 }
 
 abstract class _AddTax implements CheckoutEvent {
-  const factory _AddTax(final int tax) = _$AddTaxImpl;
+  const factory _AddTax(final Tax tax) = _$AddTaxImpl;
 
-  int get tax;
+  Tax get tax;
   @JsonKey(ignore: true)
   _$$AddTaxImplCopyWith<_$AddTaxImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1068,6 +1324,8 @@ abstract class _$$RemoveTaxImplCopyWith<$Res> {
   factory _$$RemoveTaxImplCopyWith(
           _$RemoveTaxImpl value, $Res Function(_$RemoveTaxImpl) then) =
       __$$RemoveTaxImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Tax tax});
 }
 
 /// @nodoc
@@ -1077,26 +1335,58 @@ class __$$RemoveTaxImplCopyWithImpl<$Res>
   __$$RemoveTaxImplCopyWithImpl(
       _$RemoveTaxImpl _value, $Res Function(_$RemoveTaxImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? tax = null,
+  }) {
+    return _then(_$RemoveTaxImpl(
+      null == tax
+          ? _value.tax
+          : tax // ignore: cast_nullable_to_non_nullable
+              as Tax,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$RemoveTaxImpl implements _RemoveTax {
-  const _$RemoveTaxImpl();
+class _$RemoveTaxImpl with DiagnosticableTreeMixin implements _RemoveTax {
+  const _$RemoveTaxImpl(this.tax);
 
   @override
-  String toString() {
-    return 'CheckoutEvent.removeTax()';
+  final Tax tax;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'CheckoutEvent.removeTax(tax: $tax)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'CheckoutEvent.removeTax'))
+      ..add(DiagnosticsProperty('tax', tax));
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$RemoveTaxImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$RemoveTaxImpl &&
+            (identical(other.tax, tax) || other.tax == tax));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, tax);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RemoveTaxImplCopyWith<_$RemoveTaxImpl> get copyWith =>
+      __$$RemoveTaxImplCopyWithImpl<_$RemoveTaxImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1105,12 +1395,17 @@ class _$RemoveTaxImpl implements _RemoveTax {
     required TResult Function(Product product) addItem,
     required TResult Function(Product product) removeItem,
     required TResult Function(Discount discount) addDiscount,
-    required TResult Function() removeDiscount,
-    required TResult Function(int tax) addTax,
-    required TResult Function() removeTax,
-    required TResult Function(int serviceCharge) addServiceCharge,
+    required TResult Function(Discount discount) removeDiscount,
+    required TResult Function(Tax tax) addTax,
+    required TResult Function(Tax tax) removeTax,
+    required TResult Function(Service service) addServiceCharge,
+    required TResult Function(Service service) removeServiceCharge,
+    required TResult Function() saveToDraft,
+    required TResult Function(int index) removeDraft,
+    required TResult Function(Product product, ProductQuantity quantity)
+        addItemDraft,
   }) {
-    return removeTax();
+    return removeTax(tax);
   }
 
   @override
@@ -1120,12 +1415,16 @@ class _$RemoveTaxImpl implements _RemoveTax {
     TResult? Function(Product product)? addItem,
     TResult? Function(Product product)? removeItem,
     TResult? Function(Discount discount)? addDiscount,
-    TResult? Function()? removeDiscount,
-    TResult? Function(int tax)? addTax,
-    TResult? Function()? removeTax,
-    TResult? Function(int serviceCharge)? addServiceCharge,
+    TResult? Function(Discount discount)? removeDiscount,
+    TResult? Function(Tax tax)? addTax,
+    TResult? Function(Tax tax)? removeTax,
+    TResult? Function(Service service)? addServiceCharge,
+    TResult? Function(Service service)? removeServiceCharge,
+    TResult? Function()? saveToDraft,
+    TResult? Function(int index)? removeDraft,
+    TResult? Function(Product product, ProductQuantity quantity)? addItemDraft,
   }) {
-    return removeTax?.call();
+    return removeTax?.call(tax);
   }
 
   @override
@@ -1135,14 +1434,18 @@ class _$RemoveTaxImpl implements _RemoveTax {
     TResult Function(Product product)? addItem,
     TResult Function(Product product)? removeItem,
     TResult Function(Discount discount)? addDiscount,
-    TResult Function()? removeDiscount,
-    TResult Function(int tax)? addTax,
-    TResult Function()? removeTax,
-    TResult Function(int serviceCharge)? addServiceCharge,
+    TResult Function(Discount discount)? removeDiscount,
+    TResult Function(Tax tax)? addTax,
+    TResult Function(Tax tax)? removeTax,
+    TResult Function(Service service)? addServiceCharge,
+    TResult Function(Service service)? removeServiceCharge,
+    TResult Function()? saveToDraft,
+    TResult Function(int index)? removeDraft,
+    TResult Function(Product product, ProductQuantity quantity)? addItemDraft,
     required TResult orElse(),
   }) {
     if (removeTax != null) {
-      return removeTax();
+      return removeTax(tax);
     }
     return orElse();
   }
@@ -1158,6 +1461,10 @@ class _$RemoveTaxImpl implements _RemoveTax {
     required TResult Function(_AddTax value) addTax,
     required TResult Function(_RemoveTax value) removeTax,
     required TResult Function(_AddServiceCharge value) addServiceCharge,
+    required TResult Function(_RemoveServiceCharge value) removeServiceCharge,
+    required TResult Function(_SaveToDraft value) saveToDraft,
+    required TResult Function(_RemoveDraft value) removeDraft,
+    required TResult Function(_AddItemDraft value) addItemDraft,
   }) {
     return removeTax(this);
   }
@@ -1173,6 +1480,10 @@ class _$RemoveTaxImpl implements _RemoveTax {
     TResult? Function(_AddTax value)? addTax,
     TResult? Function(_RemoveTax value)? removeTax,
     TResult? Function(_AddServiceCharge value)? addServiceCharge,
+    TResult? Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult? Function(_SaveToDraft value)? saveToDraft,
+    TResult? Function(_RemoveDraft value)? removeDraft,
+    TResult? Function(_AddItemDraft value)? addItemDraft,
   }) {
     return removeTax?.call(this);
   }
@@ -1188,6 +1499,10 @@ class _$RemoveTaxImpl implements _RemoveTax {
     TResult Function(_AddTax value)? addTax,
     TResult Function(_RemoveTax value)? removeTax,
     TResult Function(_AddServiceCharge value)? addServiceCharge,
+    TResult Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult Function(_SaveToDraft value)? saveToDraft,
+    TResult Function(_RemoveDraft value)? removeDraft,
+    TResult Function(_AddItemDraft value)? addItemDraft,
     required TResult orElse(),
   }) {
     if (removeTax != null) {
@@ -1198,7 +1513,12 @@ class _$RemoveTaxImpl implements _RemoveTax {
 }
 
 abstract class _RemoveTax implements CheckoutEvent {
-  const factory _RemoveTax() = _$RemoveTaxImpl;
+  const factory _RemoveTax(final Tax tax) = _$RemoveTaxImpl;
+
+  Tax get tax;
+  @JsonKey(ignore: true)
+  _$$RemoveTaxImplCopyWith<_$RemoveTaxImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1207,7 +1527,7 @@ abstract class _$$AddServiceChargeImplCopyWith<$Res> {
           $Res Function(_$AddServiceChargeImpl) then) =
       __$$AddServiceChargeImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int serviceCharge});
+  $Res call({Service service});
 }
 
 /// @nodoc
@@ -1221,28 +1541,38 @@ class __$$AddServiceChargeImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? serviceCharge = null,
+    Object? service = null,
   }) {
     return _then(_$AddServiceChargeImpl(
-      null == serviceCharge
-          ? _value.serviceCharge
-          : serviceCharge // ignore: cast_nullable_to_non_nullable
-              as int,
+      null == service
+          ? _value.service
+          : service // ignore: cast_nullable_to_non_nullable
+              as Service,
     ));
   }
 }
 
 /// @nodoc
 
-class _$AddServiceChargeImpl implements _AddServiceCharge {
-  const _$AddServiceChargeImpl(this.serviceCharge);
+class _$AddServiceChargeImpl
+    with DiagnosticableTreeMixin
+    implements _AddServiceCharge {
+  const _$AddServiceChargeImpl(this.service);
 
   @override
-  final int serviceCharge;
+  final Service service;
 
   @override
-  String toString() {
-    return 'CheckoutEvent.addServiceCharge(serviceCharge: $serviceCharge)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'CheckoutEvent.addServiceCharge(service: $service)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'CheckoutEvent.addServiceCharge'))
+      ..add(DiagnosticsProperty('service', service));
   }
 
   @override
@@ -1250,12 +1580,11 @@ class _$AddServiceChargeImpl implements _AddServiceCharge {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddServiceChargeImpl &&
-            (identical(other.serviceCharge, serviceCharge) ||
-                other.serviceCharge == serviceCharge));
+            (identical(other.service, service) || other.service == service));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, serviceCharge);
+  int get hashCode => Object.hash(runtimeType, service);
 
   @JsonKey(ignore: true)
   @override
@@ -1271,12 +1600,17 @@ class _$AddServiceChargeImpl implements _AddServiceCharge {
     required TResult Function(Product product) addItem,
     required TResult Function(Product product) removeItem,
     required TResult Function(Discount discount) addDiscount,
-    required TResult Function() removeDiscount,
-    required TResult Function(int tax) addTax,
-    required TResult Function() removeTax,
-    required TResult Function(int serviceCharge) addServiceCharge,
+    required TResult Function(Discount discount) removeDiscount,
+    required TResult Function(Tax tax) addTax,
+    required TResult Function(Tax tax) removeTax,
+    required TResult Function(Service service) addServiceCharge,
+    required TResult Function(Service service) removeServiceCharge,
+    required TResult Function() saveToDraft,
+    required TResult Function(int index) removeDraft,
+    required TResult Function(Product product, ProductQuantity quantity)
+        addItemDraft,
   }) {
-    return addServiceCharge(serviceCharge);
+    return addServiceCharge(service);
   }
 
   @override
@@ -1286,12 +1620,16 @@ class _$AddServiceChargeImpl implements _AddServiceCharge {
     TResult? Function(Product product)? addItem,
     TResult? Function(Product product)? removeItem,
     TResult? Function(Discount discount)? addDiscount,
-    TResult? Function()? removeDiscount,
-    TResult? Function(int tax)? addTax,
-    TResult? Function()? removeTax,
-    TResult? Function(int serviceCharge)? addServiceCharge,
+    TResult? Function(Discount discount)? removeDiscount,
+    TResult? Function(Tax tax)? addTax,
+    TResult? Function(Tax tax)? removeTax,
+    TResult? Function(Service service)? addServiceCharge,
+    TResult? Function(Service service)? removeServiceCharge,
+    TResult? Function()? saveToDraft,
+    TResult? Function(int index)? removeDraft,
+    TResult? Function(Product product, ProductQuantity quantity)? addItemDraft,
   }) {
-    return addServiceCharge?.call(serviceCharge);
+    return addServiceCharge?.call(service);
   }
 
   @override
@@ -1301,14 +1639,18 @@ class _$AddServiceChargeImpl implements _AddServiceCharge {
     TResult Function(Product product)? addItem,
     TResult Function(Product product)? removeItem,
     TResult Function(Discount discount)? addDiscount,
-    TResult Function()? removeDiscount,
-    TResult Function(int tax)? addTax,
-    TResult Function()? removeTax,
-    TResult Function(int serviceCharge)? addServiceCharge,
+    TResult Function(Discount discount)? removeDiscount,
+    TResult Function(Tax tax)? addTax,
+    TResult Function(Tax tax)? removeTax,
+    TResult Function(Service service)? addServiceCharge,
+    TResult Function(Service service)? removeServiceCharge,
+    TResult Function()? saveToDraft,
+    TResult Function(int index)? removeDraft,
+    TResult Function(Product product, ProductQuantity quantity)? addItemDraft,
     required TResult orElse(),
   }) {
     if (addServiceCharge != null) {
-      return addServiceCharge(serviceCharge);
+      return addServiceCharge(service);
     }
     return orElse();
   }
@@ -1324,6 +1666,10 @@ class _$AddServiceChargeImpl implements _AddServiceCharge {
     required TResult Function(_AddTax value) addTax,
     required TResult Function(_RemoveTax value) removeTax,
     required TResult Function(_AddServiceCharge value) addServiceCharge,
+    required TResult Function(_RemoveServiceCharge value) removeServiceCharge,
+    required TResult Function(_SaveToDraft value) saveToDraft,
+    required TResult Function(_RemoveDraft value) removeDraft,
+    required TResult Function(_AddItemDraft value) addItemDraft,
   }) {
     return addServiceCharge(this);
   }
@@ -1339,6 +1685,10 @@ class _$AddServiceChargeImpl implements _AddServiceCharge {
     TResult? Function(_AddTax value)? addTax,
     TResult? Function(_RemoveTax value)? removeTax,
     TResult? Function(_AddServiceCharge value)? addServiceCharge,
+    TResult? Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult? Function(_SaveToDraft value)? saveToDraft,
+    TResult? Function(_RemoveDraft value)? removeDraft,
+    TResult? Function(_AddItemDraft value)? addItemDraft,
   }) {
     return addServiceCharge?.call(this);
   }
@@ -1354,6 +1704,10 @@ class _$AddServiceChargeImpl implements _AddServiceCharge {
     TResult Function(_AddTax value)? addTax,
     TResult Function(_RemoveTax value)? removeTax,
     TResult Function(_AddServiceCharge value)? addServiceCharge,
+    TResult Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult Function(_SaveToDraft value)? saveToDraft,
+    TResult Function(_RemoveDraft value)? removeDraft,
+    TResult Function(_AddItemDraft value)? addItemDraft,
     required TResult orElse(),
   }) {
     if (addServiceCharge != null) {
@@ -1364,12 +1718,804 @@ class _$AddServiceChargeImpl implements _AddServiceCharge {
 }
 
 abstract class _AddServiceCharge implements CheckoutEvent {
-  const factory _AddServiceCharge(final int serviceCharge) =
+  const factory _AddServiceCharge(final Service service) =
       _$AddServiceChargeImpl;
 
-  int get serviceCharge;
+  Service get service;
   @JsonKey(ignore: true)
   _$$AddServiceChargeImplCopyWith<_$AddServiceChargeImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RemoveServiceChargeImplCopyWith<$Res> {
+  factory _$$RemoveServiceChargeImplCopyWith(_$RemoveServiceChargeImpl value,
+          $Res Function(_$RemoveServiceChargeImpl) then) =
+      __$$RemoveServiceChargeImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Service service});
+}
+
+/// @nodoc
+class __$$RemoveServiceChargeImplCopyWithImpl<$Res>
+    extends _$CheckoutEventCopyWithImpl<$Res, _$RemoveServiceChargeImpl>
+    implements _$$RemoveServiceChargeImplCopyWith<$Res> {
+  __$$RemoveServiceChargeImplCopyWithImpl(_$RemoveServiceChargeImpl _value,
+      $Res Function(_$RemoveServiceChargeImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? service = null,
+  }) {
+    return _then(_$RemoveServiceChargeImpl(
+      null == service
+          ? _value.service
+          : service // ignore: cast_nullable_to_non_nullable
+              as Service,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RemoveServiceChargeImpl
+    with DiagnosticableTreeMixin
+    implements _RemoveServiceCharge {
+  const _$RemoveServiceChargeImpl(this.service);
+
+  @override
+  final Service service;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'CheckoutEvent.removeServiceCharge(service: $service)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'CheckoutEvent.removeServiceCharge'))
+      ..add(DiagnosticsProperty('service', service));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RemoveServiceChargeImpl &&
+            (identical(other.service, service) || other.service == service));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, service);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RemoveServiceChargeImplCopyWith<_$RemoveServiceChargeImpl> get copyWith =>
+      __$$RemoveServiceChargeImplCopyWithImpl<_$RemoveServiceChargeImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(Product product) addItem,
+    required TResult Function(Product product) removeItem,
+    required TResult Function(Discount discount) addDiscount,
+    required TResult Function(Discount discount) removeDiscount,
+    required TResult Function(Tax tax) addTax,
+    required TResult Function(Tax tax) removeTax,
+    required TResult Function(Service service) addServiceCharge,
+    required TResult Function(Service service) removeServiceCharge,
+    required TResult Function() saveToDraft,
+    required TResult Function(int index) removeDraft,
+    required TResult Function(Product product, ProductQuantity quantity)
+        addItemDraft,
+  }) {
+    return removeServiceCharge(service);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(Product product)? addItem,
+    TResult? Function(Product product)? removeItem,
+    TResult? Function(Discount discount)? addDiscount,
+    TResult? Function(Discount discount)? removeDiscount,
+    TResult? Function(Tax tax)? addTax,
+    TResult? Function(Tax tax)? removeTax,
+    TResult? Function(Service service)? addServiceCharge,
+    TResult? Function(Service service)? removeServiceCharge,
+    TResult? Function()? saveToDraft,
+    TResult? Function(int index)? removeDraft,
+    TResult? Function(Product product, ProductQuantity quantity)? addItemDraft,
+  }) {
+    return removeServiceCharge?.call(service);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(Product product)? addItem,
+    TResult Function(Product product)? removeItem,
+    TResult Function(Discount discount)? addDiscount,
+    TResult Function(Discount discount)? removeDiscount,
+    TResult Function(Tax tax)? addTax,
+    TResult Function(Tax tax)? removeTax,
+    TResult Function(Service service)? addServiceCharge,
+    TResult Function(Service service)? removeServiceCharge,
+    TResult Function()? saveToDraft,
+    TResult Function(int index)? removeDraft,
+    TResult Function(Product product, ProductQuantity quantity)? addItemDraft,
+    required TResult orElse(),
+  }) {
+    if (removeServiceCharge != null) {
+      return removeServiceCharge(service);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_AddItem value) addItem,
+    required TResult Function(_RemoveItem value) removeItem,
+    required TResult Function(_AddDiscount value) addDiscount,
+    required TResult Function(_RemoveDiscount value) removeDiscount,
+    required TResult Function(_AddTax value) addTax,
+    required TResult Function(_RemoveTax value) removeTax,
+    required TResult Function(_AddServiceCharge value) addServiceCharge,
+    required TResult Function(_RemoveServiceCharge value) removeServiceCharge,
+    required TResult Function(_SaveToDraft value) saveToDraft,
+    required TResult Function(_RemoveDraft value) removeDraft,
+    required TResult Function(_AddItemDraft value) addItemDraft,
+  }) {
+    return removeServiceCharge(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_AddItem value)? addItem,
+    TResult? Function(_RemoveItem value)? removeItem,
+    TResult? Function(_AddDiscount value)? addDiscount,
+    TResult? Function(_RemoveDiscount value)? removeDiscount,
+    TResult? Function(_AddTax value)? addTax,
+    TResult? Function(_RemoveTax value)? removeTax,
+    TResult? Function(_AddServiceCharge value)? addServiceCharge,
+    TResult? Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult? Function(_SaveToDraft value)? saveToDraft,
+    TResult? Function(_RemoveDraft value)? removeDraft,
+    TResult? Function(_AddItemDraft value)? addItemDraft,
+  }) {
+    return removeServiceCharge?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_AddItem value)? addItem,
+    TResult Function(_RemoveItem value)? removeItem,
+    TResult Function(_AddDiscount value)? addDiscount,
+    TResult Function(_RemoveDiscount value)? removeDiscount,
+    TResult Function(_AddTax value)? addTax,
+    TResult Function(_RemoveTax value)? removeTax,
+    TResult Function(_AddServiceCharge value)? addServiceCharge,
+    TResult Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult Function(_SaveToDraft value)? saveToDraft,
+    TResult Function(_RemoveDraft value)? removeDraft,
+    TResult Function(_AddItemDraft value)? addItemDraft,
+    required TResult orElse(),
+  }) {
+    if (removeServiceCharge != null) {
+      return removeServiceCharge(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RemoveServiceCharge implements CheckoutEvent {
+  const factory _RemoveServiceCharge(final Service service) =
+      _$RemoveServiceChargeImpl;
+
+  Service get service;
+  @JsonKey(ignore: true)
+  _$$RemoveServiceChargeImplCopyWith<_$RemoveServiceChargeImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SaveToDraftImplCopyWith<$Res> {
+  factory _$$SaveToDraftImplCopyWith(
+          _$SaveToDraftImpl value, $Res Function(_$SaveToDraftImpl) then) =
+      __$$SaveToDraftImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SaveToDraftImplCopyWithImpl<$Res>
+    extends _$CheckoutEventCopyWithImpl<$Res, _$SaveToDraftImpl>
+    implements _$$SaveToDraftImplCopyWith<$Res> {
+  __$$SaveToDraftImplCopyWithImpl(
+      _$SaveToDraftImpl _value, $Res Function(_$SaveToDraftImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SaveToDraftImpl with DiagnosticableTreeMixin implements _SaveToDraft {
+  const _$SaveToDraftImpl();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'CheckoutEvent.saveToDraft()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'CheckoutEvent.saveToDraft'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SaveToDraftImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(Product product) addItem,
+    required TResult Function(Product product) removeItem,
+    required TResult Function(Discount discount) addDiscount,
+    required TResult Function(Discount discount) removeDiscount,
+    required TResult Function(Tax tax) addTax,
+    required TResult Function(Tax tax) removeTax,
+    required TResult Function(Service service) addServiceCharge,
+    required TResult Function(Service service) removeServiceCharge,
+    required TResult Function() saveToDraft,
+    required TResult Function(int index) removeDraft,
+    required TResult Function(Product product, ProductQuantity quantity)
+        addItemDraft,
+  }) {
+    return saveToDraft();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(Product product)? addItem,
+    TResult? Function(Product product)? removeItem,
+    TResult? Function(Discount discount)? addDiscount,
+    TResult? Function(Discount discount)? removeDiscount,
+    TResult? Function(Tax tax)? addTax,
+    TResult? Function(Tax tax)? removeTax,
+    TResult? Function(Service service)? addServiceCharge,
+    TResult? Function(Service service)? removeServiceCharge,
+    TResult? Function()? saveToDraft,
+    TResult? Function(int index)? removeDraft,
+    TResult? Function(Product product, ProductQuantity quantity)? addItemDraft,
+  }) {
+    return saveToDraft?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(Product product)? addItem,
+    TResult Function(Product product)? removeItem,
+    TResult Function(Discount discount)? addDiscount,
+    TResult Function(Discount discount)? removeDiscount,
+    TResult Function(Tax tax)? addTax,
+    TResult Function(Tax tax)? removeTax,
+    TResult Function(Service service)? addServiceCharge,
+    TResult Function(Service service)? removeServiceCharge,
+    TResult Function()? saveToDraft,
+    TResult Function(int index)? removeDraft,
+    TResult Function(Product product, ProductQuantity quantity)? addItemDraft,
+    required TResult orElse(),
+  }) {
+    if (saveToDraft != null) {
+      return saveToDraft();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_AddItem value) addItem,
+    required TResult Function(_RemoveItem value) removeItem,
+    required TResult Function(_AddDiscount value) addDiscount,
+    required TResult Function(_RemoveDiscount value) removeDiscount,
+    required TResult Function(_AddTax value) addTax,
+    required TResult Function(_RemoveTax value) removeTax,
+    required TResult Function(_AddServiceCharge value) addServiceCharge,
+    required TResult Function(_RemoveServiceCharge value) removeServiceCharge,
+    required TResult Function(_SaveToDraft value) saveToDraft,
+    required TResult Function(_RemoveDraft value) removeDraft,
+    required TResult Function(_AddItemDraft value) addItemDraft,
+  }) {
+    return saveToDraft(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_AddItem value)? addItem,
+    TResult? Function(_RemoveItem value)? removeItem,
+    TResult? Function(_AddDiscount value)? addDiscount,
+    TResult? Function(_RemoveDiscount value)? removeDiscount,
+    TResult? Function(_AddTax value)? addTax,
+    TResult? Function(_RemoveTax value)? removeTax,
+    TResult? Function(_AddServiceCharge value)? addServiceCharge,
+    TResult? Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult? Function(_SaveToDraft value)? saveToDraft,
+    TResult? Function(_RemoveDraft value)? removeDraft,
+    TResult? Function(_AddItemDraft value)? addItemDraft,
+  }) {
+    return saveToDraft?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_AddItem value)? addItem,
+    TResult Function(_RemoveItem value)? removeItem,
+    TResult Function(_AddDiscount value)? addDiscount,
+    TResult Function(_RemoveDiscount value)? removeDiscount,
+    TResult Function(_AddTax value)? addTax,
+    TResult Function(_RemoveTax value)? removeTax,
+    TResult Function(_AddServiceCharge value)? addServiceCharge,
+    TResult Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult Function(_SaveToDraft value)? saveToDraft,
+    TResult Function(_RemoveDraft value)? removeDraft,
+    TResult Function(_AddItemDraft value)? addItemDraft,
+    required TResult orElse(),
+  }) {
+    if (saveToDraft != null) {
+      return saveToDraft(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SaveToDraft implements CheckoutEvent {
+  const factory _SaveToDraft() = _$SaveToDraftImpl;
+}
+
+/// @nodoc
+abstract class _$$RemoveDraftImplCopyWith<$Res> {
+  factory _$$RemoveDraftImplCopyWith(
+          _$RemoveDraftImpl value, $Res Function(_$RemoveDraftImpl) then) =
+      __$$RemoveDraftImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int index});
+}
+
+/// @nodoc
+class __$$RemoveDraftImplCopyWithImpl<$Res>
+    extends _$CheckoutEventCopyWithImpl<$Res, _$RemoveDraftImpl>
+    implements _$$RemoveDraftImplCopyWith<$Res> {
+  __$$RemoveDraftImplCopyWithImpl(
+      _$RemoveDraftImpl _value, $Res Function(_$RemoveDraftImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+  }) {
+    return _then(_$RemoveDraftImpl(
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RemoveDraftImpl with DiagnosticableTreeMixin implements _RemoveDraft {
+  const _$RemoveDraftImpl(this.index);
+
+  @override
+  final int index;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'CheckoutEvent.removeDraft(index: $index)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'CheckoutEvent.removeDraft'))
+      ..add(DiagnosticsProperty('index', index));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RemoveDraftImpl &&
+            (identical(other.index, index) || other.index == index));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RemoveDraftImplCopyWith<_$RemoveDraftImpl> get copyWith =>
+      __$$RemoveDraftImplCopyWithImpl<_$RemoveDraftImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(Product product) addItem,
+    required TResult Function(Product product) removeItem,
+    required TResult Function(Discount discount) addDiscount,
+    required TResult Function(Discount discount) removeDiscount,
+    required TResult Function(Tax tax) addTax,
+    required TResult Function(Tax tax) removeTax,
+    required TResult Function(Service service) addServiceCharge,
+    required TResult Function(Service service) removeServiceCharge,
+    required TResult Function() saveToDraft,
+    required TResult Function(int index) removeDraft,
+    required TResult Function(Product product, ProductQuantity quantity)
+        addItemDraft,
+  }) {
+    return removeDraft(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(Product product)? addItem,
+    TResult? Function(Product product)? removeItem,
+    TResult? Function(Discount discount)? addDiscount,
+    TResult? Function(Discount discount)? removeDiscount,
+    TResult? Function(Tax tax)? addTax,
+    TResult? Function(Tax tax)? removeTax,
+    TResult? Function(Service service)? addServiceCharge,
+    TResult? Function(Service service)? removeServiceCharge,
+    TResult? Function()? saveToDraft,
+    TResult? Function(int index)? removeDraft,
+    TResult? Function(Product product, ProductQuantity quantity)? addItemDraft,
+  }) {
+    return removeDraft?.call(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(Product product)? addItem,
+    TResult Function(Product product)? removeItem,
+    TResult Function(Discount discount)? addDiscount,
+    TResult Function(Discount discount)? removeDiscount,
+    TResult Function(Tax tax)? addTax,
+    TResult Function(Tax tax)? removeTax,
+    TResult Function(Service service)? addServiceCharge,
+    TResult Function(Service service)? removeServiceCharge,
+    TResult Function()? saveToDraft,
+    TResult Function(int index)? removeDraft,
+    TResult Function(Product product, ProductQuantity quantity)? addItemDraft,
+    required TResult orElse(),
+  }) {
+    if (removeDraft != null) {
+      return removeDraft(index);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_AddItem value) addItem,
+    required TResult Function(_RemoveItem value) removeItem,
+    required TResult Function(_AddDiscount value) addDiscount,
+    required TResult Function(_RemoveDiscount value) removeDiscount,
+    required TResult Function(_AddTax value) addTax,
+    required TResult Function(_RemoveTax value) removeTax,
+    required TResult Function(_AddServiceCharge value) addServiceCharge,
+    required TResult Function(_RemoveServiceCharge value) removeServiceCharge,
+    required TResult Function(_SaveToDraft value) saveToDraft,
+    required TResult Function(_RemoveDraft value) removeDraft,
+    required TResult Function(_AddItemDraft value) addItemDraft,
+  }) {
+    return removeDraft(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_AddItem value)? addItem,
+    TResult? Function(_RemoveItem value)? removeItem,
+    TResult? Function(_AddDiscount value)? addDiscount,
+    TResult? Function(_RemoveDiscount value)? removeDiscount,
+    TResult? Function(_AddTax value)? addTax,
+    TResult? Function(_RemoveTax value)? removeTax,
+    TResult? Function(_AddServiceCharge value)? addServiceCharge,
+    TResult? Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult? Function(_SaveToDraft value)? saveToDraft,
+    TResult? Function(_RemoveDraft value)? removeDraft,
+    TResult? Function(_AddItemDraft value)? addItemDraft,
+  }) {
+    return removeDraft?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_AddItem value)? addItem,
+    TResult Function(_RemoveItem value)? removeItem,
+    TResult Function(_AddDiscount value)? addDiscount,
+    TResult Function(_RemoveDiscount value)? removeDiscount,
+    TResult Function(_AddTax value)? addTax,
+    TResult Function(_RemoveTax value)? removeTax,
+    TResult Function(_AddServiceCharge value)? addServiceCharge,
+    TResult Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult Function(_SaveToDraft value)? saveToDraft,
+    TResult Function(_RemoveDraft value)? removeDraft,
+    TResult Function(_AddItemDraft value)? addItemDraft,
+    required TResult orElse(),
+  }) {
+    if (removeDraft != null) {
+      return removeDraft(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RemoveDraft implements CheckoutEvent {
+  const factory _RemoveDraft(final int index) = _$RemoveDraftImpl;
+
+  int get index;
+  @JsonKey(ignore: true)
+  _$$RemoveDraftImplCopyWith<_$RemoveDraftImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AddItemDraftImplCopyWith<$Res> {
+  factory _$$AddItemDraftImplCopyWith(
+          _$AddItemDraftImpl value, $Res Function(_$AddItemDraftImpl) then) =
+      __$$AddItemDraftImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Product product, ProductQuantity quantity});
+}
+
+/// @nodoc
+class __$$AddItemDraftImplCopyWithImpl<$Res>
+    extends _$CheckoutEventCopyWithImpl<$Res, _$AddItemDraftImpl>
+    implements _$$AddItemDraftImplCopyWith<$Res> {
+  __$$AddItemDraftImplCopyWithImpl(
+      _$AddItemDraftImpl _value, $Res Function(_$AddItemDraftImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? product = null,
+    Object? quantity = null,
+  }) {
+    return _then(_$AddItemDraftImpl(
+      null == product
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as Product,
+      null == quantity
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as ProductQuantity,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AddItemDraftImpl with DiagnosticableTreeMixin implements _AddItemDraft {
+  const _$AddItemDraftImpl(this.product, this.quantity);
+
+  @override
+  final Product product;
+  @override
+  final ProductQuantity quantity;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'CheckoutEvent.addItemDraft(product: $product, quantity: $quantity)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'CheckoutEvent.addItemDraft'))
+      ..add(DiagnosticsProperty('product', product))
+      ..add(DiagnosticsProperty('quantity', quantity));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddItemDraftImpl &&
+            (identical(other.product, product) || other.product == product) &&
+            (identical(other.quantity, quantity) ||
+                other.quantity == quantity));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, product, quantity);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AddItemDraftImplCopyWith<_$AddItemDraftImpl> get copyWith =>
+      __$$AddItemDraftImplCopyWithImpl<_$AddItemDraftImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(Product product) addItem,
+    required TResult Function(Product product) removeItem,
+    required TResult Function(Discount discount) addDiscount,
+    required TResult Function(Discount discount) removeDiscount,
+    required TResult Function(Tax tax) addTax,
+    required TResult Function(Tax tax) removeTax,
+    required TResult Function(Service service) addServiceCharge,
+    required TResult Function(Service service) removeServiceCharge,
+    required TResult Function() saveToDraft,
+    required TResult Function(int index) removeDraft,
+    required TResult Function(Product product, ProductQuantity quantity)
+        addItemDraft,
+  }) {
+    return addItemDraft(product, quantity);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(Product product)? addItem,
+    TResult? Function(Product product)? removeItem,
+    TResult? Function(Discount discount)? addDiscount,
+    TResult? Function(Discount discount)? removeDiscount,
+    TResult? Function(Tax tax)? addTax,
+    TResult? Function(Tax tax)? removeTax,
+    TResult? Function(Service service)? addServiceCharge,
+    TResult? Function(Service service)? removeServiceCharge,
+    TResult? Function()? saveToDraft,
+    TResult? Function(int index)? removeDraft,
+    TResult? Function(Product product, ProductQuantity quantity)? addItemDraft,
+  }) {
+    return addItemDraft?.call(product, quantity);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(Product product)? addItem,
+    TResult Function(Product product)? removeItem,
+    TResult Function(Discount discount)? addDiscount,
+    TResult Function(Discount discount)? removeDiscount,
+    TResult Function(Tax tax)? addTax,
+    TResult Function(Tax tax)? removeTax,
+    TResult Function(Service service)? addServiceCharge,
+    TResult Function(Service service)? removeServiceCharge,
+    TResult Function()? saveToDraft,
+    TResult Function(int index)? removeDraft,
+    TResult Function(Product product, ProductQuantity quantity)? addItemDraft,
+    required TResult orElse(),
+  }) {
+    if (addItemDraft != null) {
+      return addItemDraft(product, quantity);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_AddItem value) addItem,
+    required TResult Function(_RemoveItem value) removeItem,
+    required TResult Function(_AddDiscount value) addDiscount,
+    required TResult Function(_RemoveDiscount value) removeDiscount,
+    required TResult Function(_AddTax value) addTax,
+    required TResult Function(_RemoveTax value) removeTax,
+    required TResult Function(_AddServiceCharge value) addServiceCharge,
+    required TResult Function(_RemoveServiceCharge value) removeServiceCharge,
+    required TResult Function(_SaveToDraft value) saveToDraft,
+    required TResult Function(_RemoveDraft value) removeDraft,
+    required TResult Function(_AddItemDraft value) addItemDraft,
+  }) {
+    return addItemDraft(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_AddItem value)? addItem,
+    TResult? Function(_RemoveItem value)? removeItem,
+    TResult? Function(_AddDiscount value)? addDiscount,
+    TResult? Function(_RemoveDiscount value)? removeDiscount,
+    TResult? Function(_AddTax value)? addTax,
+    TResult? Function(_RemoveTax value)? removeTax,
+    TResult? Function(_AddServiceCharge value)? addServiceCharge,
+    TResult? Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult? Function(_SaveToDraft value)? saveToDraft,
+    TResult? Function(_RemoveDraft value)? removeDraft,
+    TResult? Function(_AddItemDraft value)? addItemDraft,
+  }) {
+    return addItemDraft?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_AddItem value)? addItem,
+    TResult Function(_RemoveItem value)? removeItem,
+    TResult Function(_AddDiscount value)? addDiscount,
+    TResult Function(_RemoveDiscount value)? removeDiscount,
+    TResult Function(_AddTax value)? addTax,
+    TResult Function(_RemoveTax value)? removeTax,
+    TResult Function(_AddServiceCharge value)? addServiceCharge,
+    TResult Function(_RemoveServiceCharge value)? removeServiceCharge,
+    TResult Function(_SaveToDraft value)? saveToDraft,
+    TResult Function(_RemoveDraft value)? removeDraft,
+    TResult Function(_AddItemDraft value)? addItemDraft,
+    required TResult orElse(),
+  }) {
+    if (addItemDraft != null) {
+      return addItemDraft(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddItemDraft implements CheckoutEvent {
+  const factory _AddItemDraft(
+          final Product product, final ProductQuantity quantity) =
+      _$AddItemDraftImpl;
+
+  Product get product;
+  ProductQuantity get quantity;
+  @JsonKey(ignore: true)
+  _$$AddItemDraftImplCopyWith<_$AddItemDraftImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1379,8 +2525,12 @@ mixin _$CheckoutState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ProductQuantity> items, Discount? discount,
-            int tax, int serviceCharge)
+    required TResult Function(
+            List<ProductQuantity> items,
+            List<List<ProductQuantity>> drafts,
+            Discount? discount,
+            Tax? tax,
+            Service? serviceCharge)
         loaded,
     required TResult Function(String message) error,
   }) =>
@@ -1389,8 +2539,12 @@ mixin _$CheckoutState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ProductQuantity> items, Discount? discount, int tax,
-            int serviceCharge)?
+    TResult? Function(
+            List<ProductQuantity> items,
+            List<List<ProductQuantity>> drafts,
+            Discount? discount,
+            Tax? tax,
+            Service? serviceCharge)?
         loaded,
     TResult? Function(String message)? error,
   }) =>
@@ -1399,8 +2553,12 @@ mixin _$CheckoutState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<ProductQuantity> items, Discount? discount, int tax,
-            int serviceCharge)?
+    TResult Function(
+            List<ProductQuantity> items,
+            List<List<ProductQuantity>> drafts,
+            Discount? discount,
+            Tax? tax,
+            Service? serviceCharge)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -1469,12 +2627,18 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$InitialImpl implements _Initial {
+class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   const _$InitialImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'CheckoutState.initial()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'CheckoutState.initial'));
   }
 
   @override
@@ -1491,8 +2655,12 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ProductQuantity> items, Discount? discount,
-            int tax, int serviceCharge)
+    required TResult Function(
+            List<ProductQuantity> items,
+            List<List<ProductQuantity>> drafts,
+            Discount? discount,
+            Tax? tax,
+            Service? serviceCharge)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -1504,8 +2672,12 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ProductQuantity> items, Discount? discount, int tax,
-            int serviceCharge)?
+    TResult? Function(
+            List<ProductQuantity> items,
+            List<List<ProductQuantity>> drafts,
+            Discount? discount,
+            Tax? tax,
+            Service? serviceCharge)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -1517,8 +2689,12 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<ProductQuantity> items, Discount? discount, int tax,
-            int serviceCharge)?
+    TResult Function(
+            List<ProductQuantity> items,
+            List<List<ProductQuantity>> drafts,
+            Discount? discount,
+            Tax? tax,
+            Service? serviceCharge)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -1589,12 +2765,18 @@ class __$$LoadingImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LoadingImpl implements _Loading {
+class _$LoadingImpl with DiagnosticableTreeMixin implements _Loading {
   const _$LoadingImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'CheckoutState.loading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'CheckoutState.loading'));
   }
 
   @override
@@ -1611,8 +2793,12 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ProductQuantity> items, Discount? discount,
-            int tax, int serviceCharge)
+    required TResult Function(
+            List<ProductQuantity> items,
+            List<List<ProductQuantity>> drafts,
+            Discount? discount,
+            Tax? tax,
+            Service? serviceCharge)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -1624,8 +2810,12 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ProductQuantity> items, Discount? discount, int tax,
-            int serviceCharge)?
+    TResult? Function(
+            List<ProductQuantity> items,
+            List<List<ProductQuantity>> drafts,
+            Discount? discount,
+            Tax? tax,
+            Service? serviceCharge)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -1637,8 +2827,12 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<ProductQuantity> items, Discount? discount, int tax,
-            int serviceCharge)?
+    TResult Function(
+            List<ProductQuantity> items,
+            List<List<ProductQuantity>> drafts,
+            Discount? discount,
+            Tax? tax,
+            Service? serviceCharge)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -1699,9 +2893,10 @@ abstract class _$$LoadedImplCopyWith<$Res> {
   @useResult
   $Res call(
       {List<ProductQuantity> items,
+      List<List<ProductQuantity>> drafts,
       Discount? discount,
-      int tax,
-      int serviceCharge});
+      Tax? tax,
+      Service? serviceCharge});
 }
 
 /// @nodoc
@@ -1716,37 +2911,47 @@ class __$$LoadedImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? items = null,
+    Object? drafts = null,
     Object? discount = freezed,
-    Object? tax = null,
-    Object? serviceCharge = null,
+    Object? tax = freezed,
+    Object? serviceCharge = freezed,
   }) {
     return _then(_$LoadedImpl(
       null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
               as List<ProductQuantity>,
+      null == drafts
+          ? _value._drafts
+          : drafts // ignore: cast_nullable_to_non_nullable
+              as List<List<ProductQuantity>>,
       freezed == discount
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
               as Discount?,
-      null == tax
+      freezed == tax
           ? _value.tax
           : tax // ignore: cast_nullable_to_non_nullable
-              as int,
-      null == serviceCharge
+              as Tax?,
+      freezed == serviceCharge
           ? _value.serviceCharge
           : serviceCharge // ignore: cast_nullable_to_non_nullable
-              as int,
+              as Service?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl(final List<ProductQuantity> items, this.discount, this.tax,
+class _$LoadedImpl with DiagnosticableTreeMixin implements _Loaded {
+  const _$LoadedImpl(
+      final List<ProductQuantity> items,
+      final List<List<ProductQuantity>> drafts,
+      this.discount,
+      this.tax,
       this.serviceCharge)
-      : _items = items;
+      : _items = items,
+        _drafts = drafts;
 
   final List<ProductQuantity> _items;
   @override
@@ -1756,16 +2961,36 @@ class _$LoadedImpl implements _Loaded {
     return EqualUnmodifiableListView(_items);
   }
 
+  final List<List<ProductQuantity>> _drafts;
+  @override
+  List<List<ProductQuantity>> get drafts {
+    if (_drafts is EqualUnmodifiableListView) return _drafts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_drafts);
+  }
+
   @override
   final Discount? discount;
   @override
-  final int tax;
+  final Tax? tax;
   @override
-  final int serviceCharge;
+  final Service? serviceCharge;
 
   @override
-  String toString() {
-    return 'CheckoutState.loaded(items: $items, discount: $discount, tax: $tax, serviceCharge: $serviceCharge)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'CheckoutState.loaded(items: $items, drafts: $drafts, discount: $discount, tax: $tax, serviceCharge: $serviceCharge)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'CheckoutState.loaded'))
+      ..add(DiagnosticsProperty('items', items))
+      ..add(DiagnosticsProperty('drafts', drafts))
+      ..add(DiagnosticsProperty('discount', discount))
+      ..add(DiagnosticsProperty('tax', tax))
+      ..add(DiagnosticsProperty('serviceCharge', serviceCharge));
   }
 
   @override
@@ -1774,6 +2999,7 @@ class _$LoadedImpl implements _Loaded {
         (other.runtimeType == runtimeType &&
             other is _$LoadedImpl &&
             const DeepCollectionEquality().equals(other._items, _items) &&
+            const DeepCollectionEquality().equals(other._drafts, _drafts) &&
             (identical(other.discount, discount) ||
                 other.discount == discount) &&
             (identical(other.tax, tax) || other.tax == tax) &&
@@ -1785,6 +3011,7 @@ class _$LoadedImpl implements _Loaded {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_items),
+      const DeepCollectionEquality().hash(_drafts),
       discount,
       tax,
       serviceCharge);
@@ -1800,12 +3027,16 @@ class _$LoadedImpl implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ProductQuantity> items, Discount? discount,
-            int tax, int serviceCharge)
+    required TResult Function(
+            List<ProductQuantity> items,
+            List<List<ProductQuantity>> drafts,
+            Discount? discount,
+            Tax? tax,
+            Service? serviceCharge)
         loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(items, discount, tax, serviceCharge);
+    return loaded(items, drafts, discount, tax, serviceCharge);
   }
 
   @override
@@ -1813,12 +3044,16 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ProductQuantity> items, Discount? discount, int tax,
-            int serviceCharge)?
+    TResult? Function(
+            List<ProductQuantity> items,
+            List<List<ProductQuantity>> drafts,
+            Discount? discount,
+            Tax? tax,
+            Service? serviceCharge)?
         loaded,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(items, discount, tax, serviceCharge);
+    return loaded?.call(items, drafts, discount, tax, serviceCharge);
   }
 
   @override
@@ -1826,14 +3061,18 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<ProductQuantity> items, Discount? discount, int tax,
-            int serviceCharge)?
+    TResult Function(
+            List<ProductQuantity> items,
+            List<List<ProductQuantity>> drafts,
+            Discount? discount,
+            Tax? tax,
+            Service? serviceCharge)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(items, discount, tax, serviceCharge);
+      return loaded(items, drafts, discount, tax, serviceCharge);
     }
     return orElse();
   }
@@ -1879,14 +3118,16 @@ class _$LoadedImpl implements _Loaded {
 abstract class _Loaded implements CheckoutState {
   const factory _Loaded(
       final List<ProductQuantity> items,
+      final List<List<ProductQuantity>> drafts,
       final Discount? discount,
-      final int tax,
-      final int serviceCharge) = _$LoadedImpl;
+      final Tax? tax,
+      final Service? serviceCharge) = _$LoadedImpl;
 
   List<ProductQuantity> get items;
+  List<List<ProductQuantity>> get drafts;
   Discount? get discount;
-  int get tax;
-  int get serviceCharge;
+  Tax? get tax;
+  Service? get serviceCharge;
   @JsonKey(ignore: true)
   _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1925,15 +3166,23 @@ class __$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErrorImpl implements _Error {
+class _$ErrorImpl with DiagnosticableTreeMixin implements _Error {
   const _$ErrorImpl(this.message);
 
   @override
   final String message;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'CheckoutState.error(message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'CheckoutState.error'))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -1958,8 +3207,12 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ProductQuantity> items, Discount? discount,
-            int tax, int serviceCharge)
+    required TResult Function(
+            List<ProductQuantity> items,
+            List<List<ProductQuantity>> drafts,
+            Discount? discount,
+            Tax? tax,
+            Service? serviceCharge)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -1971,8 +3224,12 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ProductQuantity> items, Discount? discount, int tax,
-            int serviceCharge)?
+    TResult? Function(
+            List<ProductQuantity> items,
+            List<List<ProductQuantity>> drafts,
+            Discount? discount,
+            Tax? tax,
+            Service? serviceCharge)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -1984,8 +3241,12 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<ProductQuantity> items, Discount? discount, int tax,
-            int serviceCharge)?
+    TResult Function(
+            List<ProductQuantity> items,
+            List<List<ProductQuantity>> drafts,
+            Discount? discount,
+            Tax? tax,
+            Service? serviceCharge)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),

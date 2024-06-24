@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_posresto_app/core/constants/variables.dart';
 import 'package:flutter_posresto_app/core/extensions/int_ext.dart';
 import 'package:flutter_posresto_app/core/extensions/string_ext.dart';
 import 'package:flutter_posresto_app/data/models/response/product_response_models.dart';
 import 'package:flutter_posresto_app/presentation/home/bloc/bloc/checkout_bloc.dart';
 
-import '../../../core/assets/assets.gen.dart';
 import '../../../core/components/spaces.dart';
 import '../../../core/constants/colors.dart';
-import '../models/product_model.dart';
 
 class ProductCard extends StatelessWidget {
   final Product data;
@@ -123,7 +120,7 @@ class ProductCard extends StatelessWidget {
               builder: (context, state) {
                 return state.maybeWhen(
                   orElse: () => const SizedBox(),
-                  loaded: (products, discount, tax, serviceCharge) {
+                  loaded: (products, drafts, discount, tax, serviceCharge) {
                     return products.any((element) => element.product == data)
                         ? products
                                     .firstWhere(

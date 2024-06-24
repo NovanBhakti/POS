@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_posresto_app/core/constants/colors.dart';
 import 'package:flutter_posresto_app/data/datasources/auth_local_datasource.dart';
@@ -7,6 +6,8 @@ import 'package:flutter_posresto_app/data/datasources/discount_remote_datasource
 import 'package:flutter_posresto_app/data/datasources/order_remote_datasource.dart';
 import 'package:flutter_posresto_app/data/datasources/product_local_datasource.dart';
 import 'package:flutter_posresto_app/data/datasources/product_remote_datasource.dart';
+import 'package:flutter_posresto_app/data/datasources/service_remote_datasource.dart';
+import 'package:flutter_posresto_app/data/datasources/tax_remote_datasource.dart';
 import 'package:flutter_posresto_app/presentation/auth/bloc/bloc/login_bloc.dart';
 import 'package:flutter_posresto_app/presentation/auth/bloc/bloc/logout_bloc.dart';
 import 'package:flutter_posresto_app/presentation/auth/login_page.dart';
@@ -16,14 +17,28 @@ import 'package:flutter_posresto_app/presentation/home/bloc/bloc/local_product_b
 import 'package:flutter_posresto_app/presentation/home/bloc/bloc/order/order_bloc.dart';
 import 'package:flutter_posresto_app/presentation/home/pages/dashboard_page.dart';
 import 'package:flutter_posresto_app/presentation/setting/bloc/discount/discount_bloc.dart';
+import 'package:flutter_posresto_app/presentation/setting/bloc/service/service_bloc.dart';
 import 'package:flutter_posresto_app/presentation/setting/bloc/sync_order/sync_order_bloc.dart';
 import 'package:flutter_posresto_app/presentation/setting/bloc/sync_product/sync_product_bloc.dart';
 import 'package:flutter/material.dart'
-    show BuildContext, Key, MaterialApp, StatelessWidget, Widget, runApp;
+    show BuildContext, MaterialApp, StatelessWidget, Widget, runApp;
+import 'package:flutter_posresto_app/presentation/setting/bloc/tax/tax_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:sqflite/sqflite.dart';
+import 'dart:io';
 
 void main() {
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    // Initialize FFI for desktop
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  } else if (Platform.isAndroid || Platform.isIOS) {
+    // Use the default database factory for mobile platforms
+    // No need to initialize anything specific for Android/iOS
+  }
+
   runApp(const MyApp());
 }
 
@@ -62,7 +77,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => DraftBloc(),
-        )
+        ),
+        BlocProvider(create: (context) => TaxBloc(TaxRemoteDatasource())),
+        BlocProvider(
+            create: (context) => ServiceBloc(ServiceRemoteDatasource())),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

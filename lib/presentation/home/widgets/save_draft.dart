@@ -1,60 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_posresto_app/core/components/components.dart';
-import 'package:flutter_posresto_app/presentation/home/bloc/bloc/checkout_bloc.dart';
-import 'package:flutter_posresto_app/presentation/home/widgets/order_menu.dart';
+import 'package:flutter_posresto_app/core/constants/colors.dart';
+import 'package:flutter_posresto_app/core/extensions/int_ext.dart';
+import 'package:flutter_posresto_app/core/extensions/string_ext.dart';
+import 'package:flutter_posresto_app/presentation/home/models/product_quantity.dart';
+import 'package:flutter_posresto_app/core/components/spaces.dart';
 
-class SaveToDraft extends StatefulWidget {
-  const SaveToDraft({super.key});
+class SaveDraft extends StatelessWidget {
+  final ProductQuantity data;
+  const SaveDraft({super.key, required this.data});
 
-  @override
-  State<SaveToDraft> createState() => _SaveToDraftState();
-}
-
-class _SaveToDraftState extends State<SaveToDraft> {
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      content: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Center(
-              child: Text(
-                'Are you sure want to proceed this payment?',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
+    return Column(
+      children: [
+        Container(
+          padding:
+              const EdgeInsets.fromLTRB(30, 0, 30, 0), // Padding untuk ListTile
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  data.product.name!,
+                  overflow: TextOverflow
+                      .ellipsis, // Menangani overflow jika diperlukan
+                  style: const TextStyle(
+                    fontSize: 17.0,
+                  ),
                 ),
               ),
-            ),
-            const SpaceHeight(20.0),
-            Row(
-              children: [
-                Flexible(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text('Cancel'),
-                  ),
-                ),
-                const SpaceWidth(20.0),
-                Flexible(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // context.read<OrderBloc>().add(OrderEvent.saveToDraft());
-                      Navigator.pop(context);
-                    },
-                    child: const Text('Save'),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
+            ],
+          ),
+        ), // Spasi vertikal setelah ListTile
+      ],
     );
   }
 }

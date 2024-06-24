@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_posresto_app/core/constants/colors.dart';
-import 'package:flutter_posresto_app/core/extensions/build_context_ext.dart';
 import 'package:flutter_posresto_app/data/datasources/auth_local_datasource.dart';
 import 'package:flutter_posresto_app/presentation/auth/login_page.dart';
-import 'package:flutter_posresto_app/presentation/home/widgets/dialog_payment.dart';
-import 'package:flutter_posresto_app/presentation/home/widgets/dialog_sync_order.dart';
 import 'package:flutter_posresto_app/presentation/home/widgets/dialog_sync_products.dart';
 import 'package:flutter_posresto_app/presentation/home/widgets/home_title.dart';
 import 'package:flutter_posresto_app/presentation/setting/pages/settings_page.dart';
-import 'package:flutter_posresto_app/presentation/setting/pages/sync_data_page.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../../core/assets/assets.gen.dart';
 import '../../auth/bloc/bloc/logout_bloc.dart';
 import '../widgets/nav_item.dart';
@@ -97,11 +91,23 @@ class _DashboardPageState extends State<DashboardPage> {
                               isActive: _selectedIndex == 0,
                               onTap: () => _onItemTapped(0),
                             ),
-                            NavItem(
-                              iconPath: Assets.icons.setting.path,
-                              isActive: _selectedIndex == 1,
-                              onTap: () => _onItemTapped(1),
-                            ),
+                            // NavItem(
+                            //   iconPath: Assets.icons.setting.path,
+                            //   isActive: _selectedIndex == 1,
+                            //   onTap: () => _onItemTapped(1),
+                            // ),
+                            // // if (Platform.isWindows)
+                            // NavItem(
+                            //   iconPath: Assets.icons.cash.path,
+                            //   isActive: false,
+                            //   onTap: () {
+                            //     showDialog(
+                            //       context: context,
+                            //       builder: (context) =>
+                            //           const DialogSyncProduct(),
+                            //     );
+                            //   },
+                            // ),
                             // NavItem(
                             //   iconPath: Assets.icons.cash.path,
                             //   isActive: false,
@@ -109,19 +115,9 @@ class _DashboardPageState extends State<DashboardPage> {
                             //     showDialog(
                             //         context: context,
                             //         builder: (context) =>
-                            //             const DialogSyncProduct());
+                            //             const DialogSyncOrder());
                             //   },
                             // ),
-                            NavItem(
-                              iconPath: Assets.icons.cash.path,
-                              isActive: false,
-                              onTap: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) =>
-                                        const DialogSyncOrder());
-                              },
-                            ),
                             BlocListener<LogoutBloc, LogoutState>(
                               listener: (context, state) {
                                 state.maybeMap(
@@ -169,8 +165,12 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
           ),
         ),
-        body: Expanded(
-          child: _pages[_selectedIndex],
+        body: Column(
+          children: [
+            Expanded(
+              child: _pages[_selectedIndex],
+            ),
+          ],
         ),
       ),
     );

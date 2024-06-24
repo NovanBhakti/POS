@@ -2,20 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_posresto_app/core/extensions/build_context_ext.dart';
-import 'package:flutter_posresto_app/core/extensions/date_time_ext.dart';
 import 'package:flutter_posresto_app/core/extensions/int_ext.dart';
 import 'package:flutter_posresto_app/core/extensions/string_ext.dart';
 import 'package:flutter_posresto_app/data/datasources/product_local_datasource.dart';
 import 'package:flutter_posresto_app/data/models/response/product_response_models.dart';
 import 'package:flutter_posresto_app/presentation/home/bloc/bloc/checkout_bloc.dart';
 import 'package:flutter_posresto_app/presentation/home/bloc/bloc/local_product_bloc.dart';
-import 'package:flutter_posresto_app/presentation/home/bloc/bloc/order/order_bloc.dart';
 import 'package:flutter_posresto_app/presentation/home/dialog/discount_dialog.dart';
 import 'package:flutter_posresto_app/presentation/home/dialog/tax_dialog.dart';
 import 'package:flutter_posresto_app/presentation/home/pages/confirm_payment_page.dart';
 import 'package:flutter_posresto_app/presentation/home/widgets/draft.dart';
-import 'package:flutter_posresto_app/presentation/home/widgets/save_draft.dart';
-import 'package:flutter_posresto_app/presentation/setting/bloc/sync_order/sync_order_bloc.dart';
 import 'package:flutter_posresto_app/presentation/setting/bloc/sync_product/sync_product_bloc.dart';
 import 'package:intl/intl.dart';
 
@@ -24,11 +20,8 @@ import '../../../core/components/buttons.dart';
 import '../../../core/components/spaces.dart';
 import '../../../core/constants/colors.dart';
 import '../dialog/service_dialog.dart';
-import '../models/product_category.dart';
-import '../models/product_model.dart';
 import '../widgets/column_button.dart';
 import '../widgets/custom_tab_bar.dart';
-import '../widgets/home_title.dart';
 import '../widgets/order_menu.dart';
 import '../widgets/product_card.dart';
 import '../../../core/components/search_input.dart';
@@ -50,17 +43,34 @@ class _HomePageState extends State<HomePage> {
     leftSymbol: 'Rp ',
   );
 
+  late Future<void> refresh;
   @override
   void initState() {
     // searchResults = products;
     context
         .read<LocalProductBloc>()
         .add(const LocalProductEvent.getLocalProduct());
+    refresh = _refresh();
     super.initState();
   }
 
   Future<void> _refresh() async {
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 2));
+    _refreshLocalProducts();
+    _syncProducts();
+  }
+
+  Future<void> _refreshLocalProducts() async {
+    await Future.delayed(const Duration(seconds: 2));
+    // ignore: use_build_context_synchronously
+    context
+        .read<LocalProductBloc>()
+        .add(const LocalProductEvent.getLocalProduct());
+  }
+
+  Future<void> _syncProducts() async {
+    await Future.delayed(const Duration(seconds: 2));
+    // ignore: use_build_context_synchronously
     context.read<SyncProductBloc>().add(const SyncProductEvent.syncProduct());
   }
 
@@ -76,10 +86,6 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
-  void searchProducts(String query) {
-    // Panggil metode Bloc untuk melakukan pencarian produk
-  }
-
   @override
   Widget build(BuildContext context) {
     // if (products.isEmpty) {
@@ -87,7 +93,7 @@ class _HomePageState extends State<HomePage> {
     //     child: CircularProgressIndicator(),
     //   );
     // }
-    final formattedDate = DateFormat('yyyyMMddHHmmss').format(DateTime.now());
+    final formattedDate = DateFormat('yyMMddHHmmss').format(DateTime.now());
     return Hero(
       tag: 'confirmation_screen',
       child: Scaffold(
@@ -124,8 +130,14 @@ class _HomePageState extends State<HomePage> {
                     },
                     builder: (context, state) {
                       return RefreshIndicator.adaptive(
-                        onRefresh: _refresh,
+                        onRefresh: () {
+                          setState(() {
+                            refresh = _refresh();
+                          });
+                          return refresh;
+                        },
                         child: SingleChildScrollView(
+                          physics: const AlwaysScrollableScrollPhysics(),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -157,16 +169,12 @@ class _HomePageState extends State<HomePage> {
                                   );
 
                                   return CustomTabBar(
-                                    tabTitles: [
-                                      'All',
-                                      ...categoryNames // Gunakan nama kategori sebagai judul tab
-                                    ],
+                                    tabTitles: ['All', ...categoryNames],
                                     initialTabIndex: 0,
                                     tabViews: List.generate(
                                       categoryNames.length + 1,
                                       (index) {
                                         if (index == 0) {
-                                          // View for 'All' category
                                           return SizedBox(
                                             child: BlocBuilder<LocalProductBloc,
                                                 LocalProductState>(
@@ -256,9 +264,9 @@ class _HomePageState extends State<HomePage> {
                                                     if (categoryProducts
                                                         .isEmpty) {
                                                       return const Center(
-                                                          child:
-                                                              Text('No Items'));
+                                                          child: _IsEmpty());
                                                     }
+
                                                     return GridView.builder(
                                                       shrinkWrap: true,
                                                       itemCount:
@@ -324,16 +332,20 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                               const SpaceWidth(8.0),
-                              Button.outlined(
-                                width: 100.0,
-                                height: 40,
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => const Draft(),
+                              BlocBuilder<LocalProductBloc, LocalProductState>(
+                                builder: (context, state) {
+                                  return Button.outlined(
+                                    width: 100.0,
+                                    height: 40,
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => const Draft(),
+                                      );
+                                    },
+                                    label: 'Draft',
                                   );
                                 },
-                                label: 'Draft',
                               ),
                             ],
                           ),
@@ -400,8 +412,8 @@ class _HomePageState extends State<HomePage> {
                                 orElse: () => const Center(
                                   child: Text('No Items'),
                                 ),
-                                loaded:
-                                    (products, discount, tax, serviceCharge) {
+                                loaded: (products, drafts, discount, tax,
+                                    serviceCharge) {
                                   if (products.isEmpty) {
                                     return const Center(
                                       child: Text('No Items'),
@@ -466,7 +478,7 @@ class _HomePageState extends State<HomePage> {
                                 builder: (context, state) {
                                   final price = state.maybeWhen(
                                       orElse: () => 0,
-                                      loaded: (products, discount, tax,
+                                      loaded: (products, drafts, discount, tax,
                                           serviceCharge) {
                                         if (products.isEmpty) {
                                           return 0;
@@ -497,17 +509,11 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               BlocBuilder<CheckoutBloc, CheckoutState>(
                                 builder: (context, state) {
-                                  final tax = state.maybeWhen(
-                                    orElse: () => 0,
-                                    loaded:
-                                        (products, discount, tax, service) =>
-                                            tax,
-                                  );
                                   final price = state.maybeWhen(
                                     orElse: () => 0,
-                                    loaded:
-                                        (products, discount, tax, service) =>
-                                            products.fold(
+                                    loaded: (products, drafts, discount, tax,
+                                            service) =>
+                                        products.fold(
                                       0,
                                       (previousValue, element) =>
                                           previousValue +
@@ -519,7 +525,7 @@ class _HomePageState extends State<HomePage> {
 
                                   final discount = state.maybeWhen(
                                       orElse: () => 0,
-                                      loaded: (products, discount, tax,
+                                      loaded: (products, drafts, discount, tax,
                                           serviceCharge) {
                                         if (discount == null) {
                                           return 0;
@@ -528,10 +534,49 @@ class _HomePageState extends State<HomePage> {
                                             .replaceAll('.00', '')
                                             .toIntegerFromText;
                                       });
+                                  final discountType = state.maybeWhen(
+                                    orElse: () => '',
+                                    loaded: (products, drafts, discount, tax,
+                                        serviceCharge) {
+                                      if (discount == null) {
+                                        return '';
+                                      }
+                                      return discount.type!;
+                                    },
+                                  );
 
-                                  final subTotal =
+                                  final taxName = state.maybeWhen(
+                                    orElse: () => '',
+                                    loaded: (products, drafts, discount, tax,
+                                        serviceCharge) {
+                                      if (tax == null) {
+                                        return '';
+                                      }
+                                      return tax.name!;
+                                    },
+                                  );
+                                  final taxValue = state.maybeWhen(
+                                    orElse: () => 0,
+                                    loaded: (products, drafts, discount, tax,
+                                        serviceCharge) {
+                                      if (tax == null) {
+                                        return 0;
+                                      }
+                                      return tax.value!
+                                          .replaceAll('.00', '')
+                                          .toIntegerFromText;
+                                    },
+                                  );
+
+                                  final subTotalPercentage =
                                       price - (discount / 100 * price);
-                                  final finalTax = subTotal * 0.11;
+                                  final subTotalFixed = price - discount;
+                                  final subTotal = price <= discount
+                                      ? 0
+                                      : discountType == 'percentage'
+                                          ? subTotalPercentage
+                                          : subTotalFixed;
+                                  final finalTax = subTotal * taxValue / 100;
 
                                   return Expanded(
                                     child: Row(
@@ -539,13 +584,13 @@ class _HomePageState extends State<HomePage> {
                                           .spaceBetween, // Adds space between the elements
                                       children: [
                                         Text(
-                                          'PBB ( $tax % )',
+                                          '$taxName ( $taxValue % )',
                                           style: const TextStyle(
                                             color: AppColors.grey,
                                           ),
                                         ),
                                         Text(
-                                          finalTax.toInt().currencyFormatRp,
+                                          '+ ${finalTax.toInt().currencyFormatRp}',
                                           style: const TextStyle(
                                             color: AppColors.black,
                                             fontWeight: FontWeight.bold,
@@ -566,7 +611,7 @@ class _HomePageState extends State<HomePage> {
                                 builder: (context, state) {
                                   final discount = state.maybeWhen(
                                     orElse: () => 0,
-                                    loaded: (products, discount, tax,
+                                    loaded: (products, drafts, discount, tax,
                                         serviceCharge) {
                                       if (discount == null) {
                                         return 0;
@@ -576,11 +621,33 @@ class _HomePageState extends State<HomePage> {
                                     },
                                   );
 
+                                  final discountname = state.maybeWhen(
+                                    orElse: () => 0,
+                                    loaded: (products, drafts, discount, tax,
+                                        serviceCharge) {
+                                      if (discount == null) {
+                                        return 0;
+                                      }
+                                      return discount.name!;
+                                    },
+                                  );
+
+                                  final discountType = state.maybeWhen(
+                                    orElse: () => '',
+                                    loaded: (products, drafts, discount, tax,
+                                        serviceCharge) {
+                                      if (discount == null) {
+                                        return '';
+                                      }
+                                      return discount.type!;
+                                    },
+                                  );
+
                                   final subTotal = state.maybeWhen(
                                     orElse: () => 0,
-                                    loaded:
-                                        (products, discount, tax, service) =>
-                                            products.fold(
+                                    loaded: (products, drafts, discount, tax,
+                                            service) =>
+                                        products.fold(
                                       0,
                                       (previousValue, element) =>
                                           previousValue +
@@ -591,8 +658,18 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   );
 
-                                  final finalDiscount =
+                                  final finalDiscountPercentage =
                                       discount / 100 * subTotal;
+                                  final finalDiscount = subTotal <= discount
+                                      ? 0
+                                      : discountType == 'percentage'
+                                          ? finalDiscountPercentage
+                                          : discount;
+                                  final finalDiscountName = subTotal <= discount
+                                      ? 'Rp. 0'
+                                      : (discountType == 'percentage'
+                                          ? '$discount%'
+                                          : 'Rp. -$discount');
 
                                   return Expanded(
                                     child: Row(
@@ -600,15 +677,13 @@ class _HomePageState extends State<HomePage> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          'Diskon $discount %',
+                                          '$discountname ( $finalDiscountName )',
                                           style: const TextStyle(
                                             color: AppColors.grey,
                                           ),
                                         ),
                                         Text(
-                                          finalDiscount
-                                              .toInt()
-                                              .currencyFormatRp,
+                                          '- ${finalDiscount.toInt().currencyFormatRp}',
                                           style: const TextStyle(
                                             color: AppColors.black,
                                             fontWeight: FontWeight.bold,
@@ -627,15 +702,9 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               BlocBuilder<CheckoutBloc, CheckoutState>(
                                 builder: (context, state) {
-                                  final serviceCharge = state.maybeWhen(
-                                    orElse: () => 0,
-                                    loaded: (products, discount, tax,
-                                            serviceCharge) =>
-                                        serviceCharge,
-                                  );
                                   final price = state.maybeWhen(
                                     orElse: () => 0,
-                                    loaded: (products, discount, tax,
+                                    loaded: (products, drafts, discount, tax,
                                             serviceCharge) =>
                                         products.fold(
                                       0,
@@ -649,7 +718,7 @@ class _HomePageState extends State<HomePage> {
 
                                   final discount = state.maybeWhen(
                                       orElse: () => 0,
-                                      loaded: (products, discount, tax,
+                                      loaded: (products, drafts, discount, tax,
                                           serviceCharge) {
                                         if (discount == null) {
                                           return 0;
@@ -659,22 +728,64 @@ class _HomePageState extends State<HomePage> {
                                             .toIntegerFromText;
                                       });
 
-                                  final subTotal =
+                                  final discountType = state.maybeWhen(
+                                    orElse: () => '',
+                                    loaded: (products, drafts, discount, tax,
+                                        serviceCharge) {
+                                      if (discount == null) {
+                                        return '';
+                                      }
+                                      return discount.type!;
+                                    },
+                                  );
+
+                                  final serviceChargeValue = state.maybeWhen(
+                                    orElse: () => 0,
+                                    loaded: (products, drafts, discount, tax,
+                                        serviceCharge) {
+                                      if (serviceCharge == null) {
+                                        return 0;
+                                      }
+                                      return serviceCharge.value!
+                                          .replaceAll('.00', '')
+                                          .toIntegerFromText;
+                                    },
+                                  );
+
+                                  final serviceChargeName = state.maybeWhen(
+                                    orElse: () => '',
+                                    loaded: (products, drafts, discount, tax,
+                                        serviceCharge) {
+                                      if (serviceCharge == null) {
+                                        return '';
+                                      }
+                                      return serviceCharge.name!;
+                                    },
+                                  );
+
+                                  final subTotalPercentage =
                                       price - (discount / 100 * price);
-                                  final finalTax = subTotal * 0.05;
+                                  final subTotalFixed = price - discount;
+                                  final subTotal = price <= discount
+                                      ? 0
+                                      : discountType == 'percentage'
+                                          ? subTotalPercentage
+                                          : subTotalFixed;
+                                  final finalTax =
+                                      subTotal * serviceChargeValue / 100;
                                   return Expanded(
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment
                                           .spaceBetween, // Adds space between the elements
                                       children: [
                                         Text(
-                                          'Service Charge ( $serviceCharge % )',
+                                          ' $serviceChargeName ( $serviceChargeValue % )',
                                           style: const TextStyle(
                                             color: AppColors.grey,
                                           ),
                                         ),
                                         Text(
-                                          finalTax.toInt().currencyFormatRp,
+                                          '+ ${finalTax.toInt().currencyFormatRp}',
                                           style: const TextStyle(
                                             color: AppColors.black,
                                             fontWeight: FontWeight.bold,
@@ -705,9 +816,9 @@ class _HomePageState extends State<HomePage> {
                                 builder: (context, state) {
                                   final price = state.maybeWhen(
                                     orElse: () => 0,
-                                    loaded:
-                                        (products, discount, tax, service) =>
-                                            products.fold(
+                                    loaded: (products, drafts, discount, tax,
+                                            service) =>
+                                        products.fold(
                                       0,
                                       (previousValue, element) =>
                                           previousValue +
@@ -719,7 +830,7 @@ class _HomePageState extends State<HomePage> {
 
                                   final discount = state.maybeWhen(
                                       orElse: () => 0,
-                                      loaded: (products, discount, tax,
+                                      loaded: (products, drafts, discount, tax,
                                           serviceCharge) {
                                         if (discount == null) {
                                           return 0;
@@ -729,11 +840,60 @@ class _HomePageState extends State<HomePage> {
                                             .toIntegerFromText;
                                       });
 
-                                  final subTotal =
+                                  final discountType = state.maybeWhen(
+                                    orElse: () => '',
+                                    loaded: (products, drafts, discount, tax,
+                                        serviceCharge) {
+                                      if (discount == null) {
+                                        return '';
+                                      }
+                                      return discount.type!;
+                                    },
+                                  );
+                                  final taxValue = state.maybeWhen(
+                                    orElse: () => 0,
+                                    loaded: (products, drafts, discount, tax,
+                                        serviceCharge) {
+                                      if (tax == null) {
+                                        return 0;
+                                      }
+                                      return tax.value!
+                                          .replaceAll('.00', '')
+                                          .toIntegerFromText;
+                                    },
+                                  );
+
+                                  final serviceChargeValue = state.maybeWhen(
+                                    orElse: () => 0,
+                                    loaded: (products, drafts, discount, tax,
+                                        serviceCharge) {
+                                      if (serviceCharge == null) {
+                                        return 0;
+                                      }
+                                      return serviceCharge.value!
+                                          .replaceAll('.00', '')
+                                          .toIntegerFromText;
+                                    },
+                                  );
+
+                                  final subTotalPercentage =
                                       price - (discount / 100 * price);
-                                  final tax = subTotal * 0.11;
-                                  final serviceCharge = subTotal * 0.05;
-                                  final total = subTotal + tax + serviceCharge;
+                                  final subTotalFixed = price - discount;
+                                  final subTotal = discountType == 'percentage'
+                                      ? subTotalPercentage
+                                      : subTotalFixed;
+                                  final serviceCharge =
+                                      subTotal * serviceChargeValue / 100;
+                                  final tax = subTotal * taxValue / 100;
+                                  final total = price <= discount
+                                      ? price
+                                      : subTotal + tax + serviceCharge;
+
+                                  // final subTotal =
+                                  //     price - (discount / 100 * price);
+                                  // final tax = subTotal * 0.11;
+                                  // final serviceCharge = subTotal * 0.05;
+                                  // final total = subTotal + tax + serviceCharge;
 
                                   totalPriceController.text =
                                       total.ceil().toString();
@@ -767,7 +927,9 @@ class _HomePageState extends State<HomePage> {
                                 children: [
                                   Flexible(
                                     child: Button.outlined(
-                                      onPressed: () {},
+                                      onPressed: () => context
+                                          .read<CheckoutBloc>()
+                                          .add(const CheckoutEvent.started()),
                                       icon: const Icon(
                                         Icons.delete,
                                         color: AppColors.red,
@@ -779,7 +941,10 @@ class _HomePageState extends State<HomePage> {
                                       width: 10.0), // Horizontal spacing
                                   Flexible(
                                     child: Button.outlined(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        context.read<CheckoutBloc>().add(
+                                            const CheckoutEvent.saveToDraft());
+                                      },
                                       label: 'Save Draft',
                                     ),
                                   ),

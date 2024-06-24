@@ -8,7 +8,6 @@ import 'package:flutter_posresto_app/core/extensions/string_ext.dart';
 import 'package:flutter_posresto_app/presentation/home/bloc/bloc/checkout_bloc.dart';
 import 'package:flutter_posresto_app/presentation/home/bloc/bloc/order/order_bloc.dart';
 import 'package:flutter_posresto_app/presentation/home/models/product_quantity.dart';
-import 'package:flutter_posresto_app/presentation/home/widgets/send_email.dart';
 import 'package:flutter_posresto_app/presentation/home/widgets/success_payment_dialog.dart';
 
 import '../../../core/assets/assets.gen.dart';
@@ -70,7 +69,8 @@ class _dialogPaymentState extends State<dialogPayment> {
                   builder: (context, state) {
                     final discount = state.maybeWhen(
                         orElse: () => 0,
-                        loaded: (products, discount, tax, serviceCharge) {
+                        loaded:
+                            (products, drafts, discount, tax, serviceCharge) {
                           if (discount == null) {
                             return 0;
                           }
@@ -81,7 +81,7 @@ class _dialogPaymentState extends State<dialogPayment> {
 
                     final price = state.maybeWhen(
                       orElse: () => 0,
-                      loaded: (products, discount, tax, service) =>
+                      loaded: (products, drafts, discount, tax, service) =>
                           products.fold(
                         0,
                         (previousValue, element) =>
@@ -95,7 +95,8 @@ class _dialogPaymentState extends State<dialogPayment> {
 
                     List<ProductQuantity> items = state.maybeWhen(
                       orElse: () => [],
-                      loaded: (products, discount, tax, service) => products,
+                      loaded: (products, drafts, discount, tax, service) =>
+                          products,
                     );
                     return Flexible(
                       child: Button.filled(

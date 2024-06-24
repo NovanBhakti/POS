@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_posresto_app/data/models/response/product_response_models.dart';
 import 'package:flutter_posresto_app/presentation/home/models/product_draft_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

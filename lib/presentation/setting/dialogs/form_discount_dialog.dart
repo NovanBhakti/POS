@@ -4,7 +4,6 @@ import 'package:flutter_posresto_app/core/extensions/build_context_ext.dart';
 
 import '../../../core/components/buttons.dart';
 import '../../../core/components/spaces.dart';
-import '../../home/models/product_category.dart';
 import '../models/discount_model.dart';
 
 class FormDiscountDialog extends StatelessWidget {
@@ -14,13 +13,11 @@ class FormDiscountDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final nameController = TextEditingController(text: data?.name ?? '');
-    final codeController = TextEditingController(text: data?.code ?? '');
     final descriptionController =
         TextEditingController(text: data?.description ?? '');
     final discountController =
         TextEditingController(text: data?.discount.toString() ?? '');
-    final categoryController =
-        ValueNotifier<ProductCategory>(data?.category ?? ProductCategory.food);
+
     return AlertDialog(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

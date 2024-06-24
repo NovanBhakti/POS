@@ -53,4 +53,9 @@ class ProductQuantity {
 
   factory ProductQuantity.fromJson(String source) =>
       ProductQuantity.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  String toString() {
+    return 'ProductQuantity(product: ${product.name}, quantity: $quantity)';
+  }
 }

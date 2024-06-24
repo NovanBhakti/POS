@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_posresto_app/core/constants/colors.dart';
 import 'package:flutter_posresto_app/core/extensions/build_context_ext.dart';
 import 'package:flutter_posresto_app/core/extensions/int_ext.dart';
-import 'package:flutter_posresto_app/core/extensions/string_ext.dart';
 import 'package:flutter_posresto_app/presentation/home/bloc/bloc/checkout_bloc.dart';
 import 'package:flutter_posresto_app/presentation/home/bloc/bloc/order/order_bloc.dart';
 import 'package:flutter_posresto_app/presentation/home/widgets/send_email.dart';
+import 'package:flutter_posresto_app/presentation/setting/bloc/sync_order/sync_order_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 
 import '../../../core/assets/assets.gen.dart';
 import '../../../core/components/buttons.dart';
@@ -137,34 +137,70 @@ class _SuccessPaymentDialogState extends State<SuccessPaymentDialog> {
             Row(
               children: [
                 Flexible(
-                  child: Button.outlined(
-                    onPressed: () {
-                      context
-                          .read<CheckoutBloc>()
-                          .add(const CheckoutEvent.started());
-                      context.popToRoot();
+                  child: BlocConsumer<SyncOrderBloc, SyncOrderState>(
+                    listener: (context, state) {
+                      state.maybeWhen(
+                        orElse: () {},
+                        error: (message) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(message),
+                              backgroundColor: AppColors.red,
+                            ),
+                          );
+                        },
+                        loaded: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Sync Order Success'),
+                                  backgroundColor: AppColors.green));
+                        },
+                      );
                     },
-                    label: 'Kembali',
+                    builder: (context, state) {
+                      return state.maybeWhen(
+                        orElse: () {
+                          return Button.outlined(
+                            onPressed: () {
+                              context
+                                  .read<CheckoutBloc>()
+                                  .add(const CheckoutEvent.started());
+                              context
+                                  .read<SyncOrderBloc>()
+                                  .add(const SyncOrderEvent.syncOrder());
+                              context.popToRoot();
+                            },
+                            label: 'Kembali',
+                          );
+                        },
+                        loading: () {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        },
+                      );
+                    },
                   ),
                 ),
+
                 const SpaceWidth(8.0),
-                Flexible(
-                  child: Button.filled(
-                    onPressed: () async {
-                      // final printValue =
-                      //           await CwbPrint.instance.printOrder(
-                      //         data,
-                      //         totalQty,
-                      //         totalPrice,
-                      //         'Tunai',
-                      //         totalPrice,
-                      //         'Bahri',
-                      //       );
-                      //       await PrintBluetoothThermal.writeBytes(printValue);
-                    },
-                    label: 'Print',
-                  ),
-                ),
+                // Flexible(
+                //   child: Button.filled(
+                //     onPressed: () async {
+                //       // final printValue =
+                //       //           await CwbPrint.instance.printOrder(
+                //       //         data,
+                //       //         totalQty,
+                //       //         totalPrice,
+                //       //         'Tunai',
+                //       //         totalPrice,
+                //       //         'Bahri',
+                //       //       );
+                //       //       await PrintBluetoothThermal.writeBytes(printValue);
+                //     },
+                //     label: 'Print',
+                //   ),
+                // ),
                 const SpaceWidth(8.0),
                 Flexible(
                   child: Button.filled(

@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_posresto_app/core/assets/assets.gen.dart';
 import 'package:flutter_posresto_app/core/components/components.dart';
 import 'package:flutter_posresto_app/core/extensions/build_context_ext.dart';
-import 'package:flutter_posresto_app/core/extensions/int_ext.dart';
 import 'package:flutter_posresto_app/core/extensions/string_ext.dart';
 import 'package:flutter_posresto_app/data/datasources/send_email_datasource.dart';
-import 'package:flutter_posresto_app/data/models/response/product_response_models.dart';
 import 'package:flutter_posresto_app/presentation/home/bloc/bloc/checkout_bloc.dart';
-import 'package:flutter_posresto_app/presentation/home/bloc/bloc/order/order_bloc.dart';
 import 'package:flutter_posresto_app/presentation/home/models/product_quantity.dart';
-import 'package:intl/intl.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server/gmail.dart';
 
 class sendEmail extends StatefulWidget {
   const sendEmail({Key? key}) : super(key: key);
@@ -33,11 +26,10 @@ class _sendEmailState extends State<sendEmail> {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Center(child: Assets.icons.success.svg()),
               const SpaceHeight(16.0),
               const Center(
                 child: Text(
-                  'Pembayaran telah sukses dilakukan',
+                  'Input Your Email',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20,
@@ -54,19 +46,20 @@ class _sendEmailState extends State<sendEmail> {
                 builder: (context, state) {
                   List<ProductQuantity> products = state.maybeWhen(
                     orElse: () => [],
-                    loaded: (products, discount, tax, serviceCharge) =>
+                    loaded: (products, drafts, discount, tax, serviceCharge) =>
                         products,
                   );
                   final price = state.maybeWhen(
                       orElse: () => 0,
-                      loaded: (products, discount, tax, serviceCharge) =>
-                          products.fold(
-                            0,
-                            (previousValue, element) =>
-                                previousValue +
-                                (element.product.price!.toIntegerFromText *
-                                    element.quantity),
-                          ));
+                      loaded:
+                          (products, drafts, discount, tax, serviceCharge) =>
+                              products.fold(
+                                0,
+                                (previousValue, element) =>
+                                    previousValue +
+                                    (element.product.price!.toIntegerFromText *
+                                        element.quantity),
+                              ));
                   final tax = price * 0.11;
                   final total = price + tax;
                   totalPriceController.text = total.ceil().toString();

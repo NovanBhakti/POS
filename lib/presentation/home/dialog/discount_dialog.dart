@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_posresto_app/core/extensions/build_context_ext.dart';
+import 'package:flutter_posresto_app/core/components/buttons.dart';
+import 'package:flutter_posresto_app/core/constants/colors.dart';
 import 'package:flutter_posresto_app/presentation/home/bloc/bloc/checkout_bloc.dart';
-
-import '../../../core/constants/colors.dart';
-import '../../setting/bloc/discount/discount_bloc.dart';
+import 'package:flutter_posresto_app/presentation/setting/bloc/discount/discount_bloc.dart';
 
 class DiscountDialog extends StatefulWidget {
-  const DiscountDialog({super.key});
+  const DiscountDialog({Key? key}) : super(key: key);
 
   @override
   State<DiscountDialog> createState() => _DiscountDialogState();
@@ -20,36 +19,19 @@ class _DiscountDialogState extends State<DiscountDialog> {
     super.initState();
   }
 
-  int discountIdSelected = 0;
+  int? discountIdSelected;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Stack(
-        alignment: Alignment.center,
-        children: [
-          const Text(
-            'DISKON',
-            style: TextStyle(
-              color: AppColors.primary,
-              fontSize: 28,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: IconButton(
-              onPressed: () {
-                context.pop();
-              },
-              icon: const Icon(
-                Icons.cancel,
-                color: AppColors.primary,
-                size: 30.0,
-              ),
-            ),
-          ),
-        ],
+      title: const Text(
+        'Discount',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: AppColors.black,
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+        ),
       ),
       content: BlocBuilder<DiscountBloc, DiscountState>(
         builder: (context, state) {
@@ -59,40 +41,79 @@ class _DiscountDialogState extends State<DiscountDialog> {
               child: CircularProgressIndicator(),
             ),
             loaded: (discounts) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: discounts
-                    .map(
-                      (discount) => ListTile(
-                        title: Text('Nama Diskon: ${discount.name}'),
-                        subtitle: Text('Potongan harga (${discount.value}%)'),
-                        contentPadding: EdgeInsets.zero,
-                        textColor: AppColors.primary,
-                        trailing: Checkbox(
-                          value: discount.id == discountIdSelected,
-                          onChanged: (value) {
+              return SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: discounts
+                      .map(
+                        (discount) => ListTile(
+                          title: Text(
+                            '${discount.name}',
+                            style: const TextStyle(
+                              fontSize: 18.0,
+                              color: Colors.black,
+                            ),
+                          ),
+                          subtitle: Text(
+                            ' ${discount.type == 'percentage' ? discount.value.toString() + '%' : 'Rp. ' + discount.value.toString()}',
+                            style: const TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          trailing: Radio<int>(
+                            activeColor: AppColors.primary,
+                            value: discount.id!,
+                            groupValue: discountIdSelected,
+                            onChanged: (int? value) {
+                              setState(() {
+                                if (discount.id == discountIdSelected) {
+                                  discountIdSelected = 0;
+                                  context.read<CheckoutBloc>().add(
+                                        CheckoutEvent.removeDiscount(discount),
+                                      );
+                                } else {
+                                  discountIdSelected = discount.id!;
+                                  context.read<CheckoutBloc>().add(
+                                        CheckoutEvent.addDiscount(discount),
+                                      );
+                                }
+                              });
+                            },
+                          ),
+                          onTap: () {
                             setState(() {
-                              discountIdSelected = discount.id!;
-                              context.read<CheckoutBloc>().add(
-                                    CheckoutEvent.addDiscount(
-                                      discount,
-                                    ),
-                                  );
+                              if (discount.id == discountIdSelected) {
+                                discountIdSelected = 0;
+                                context.read<CheckoutBloc>().add(
+                                      CheckoutEvent.removeDiscount(discount),
+                                    );
+                              } else {
+                                discountIdSelected = discount.id!;
+                                context.read<CheckoutBloc>().add(
+                                      CheckoutEvent.addDiscount(discount),
+                                    );
+                              }
                             });
                           },
                         ),
-                        onTap: () {
-                          // context.pop();
-                        },
-                      ),
-                    )
-                    .toList(),
+                      )
+                      .toList(),
+                ),
               );
             },
           );
         },
       ),
+      actions: [
+        Button.filled(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          label: 'Close',
+        ),
+      ],
     );
   }
 }

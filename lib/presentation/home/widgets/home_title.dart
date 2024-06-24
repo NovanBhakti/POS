@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_posresto_app/core/extensions/date_time_ext.dart';
 import 'package:intl/intl.dart';
 
-import '../../../core/components/search_input.dart';
 import '../../../core/constants/colors.dart';
 
 class HomeTitle extends StatelessWidget {
