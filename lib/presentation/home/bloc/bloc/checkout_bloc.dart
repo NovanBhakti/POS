@@ -61,7 +61,8 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
     });
 
     on<_Started>((event, emit) {
-      emit(const _Loaded([], [], null, null, null));
+      var currentState = state as _Loaded;
+      emit(_Loaded([], currentState.drafts, null, null, null));
     });
 
     on<_AddDiscount>((event, emit) {

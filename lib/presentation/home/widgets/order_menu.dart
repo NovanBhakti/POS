@@ -83,11 +83,16 @@ class OrderMenu extends StatelessWidget {
                   style: const TextStyle(
                     color: AppColors.black,
                     fontWeight: FontWeight.bold,
-                    fontSize: 14.0,
+                    fontSize: 13.0,
                   ),
                 ),
                 subtitle: Text(
-                  '@' + data.product.price!.toIntegerFromText.currencyFormatRp,
+                  '  @' +
+                      data.product.price!.toIntegerFromText.currencyFormatRp,
+                  style: const TextStyle(
+                    color: AppColors.grey,
+                    fontSize: 12.0,
+                  ),
                 ),
               ),
             ),

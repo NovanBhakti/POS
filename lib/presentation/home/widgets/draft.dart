@@ -66,7 +66,8 @@ class Draft extends StatelessWidget {
                             onTap: () {
                               for (var item in draft) {
                                 context.read<CheckoutBloc>().add(
-                                      CheckoutEvent.addItem(item.product),
+                                      CheckoutEvent.addItemDraft(
+                                          item.product, item),
                                     );
                               }
                               context

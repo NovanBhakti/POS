@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_posresto_app/core/constants/colors.dart';
 import 'package:flutter_posresto_app/data/datasources/auth_local_datasource.dart';
 import 'package:flutter_posresto_app/presentation/auth/login_page.dart';
-import 'package:flutter_posresto_app/presentation/home/widgets/dialog_sync_products.dart';
+import 'package:flutter_posresto_app/presentation/home/pages/history_orders.dart';
+import 'package:flutter_posresto_app/presentation/home/widgets/dialog_sync_order.dart';
 import 'package:flutter_posresto_app/presentation/home/widgets/home_title.dart';
 import 'package:flutter_posresto_app/presentation/setting/pages/settings_page.dart';
 import '../../../core/assets/assets.gen.dart';
@@ -25,11 +26,12 @@ class _DashboardPageState extends State<DashboardPage> {
 
   final List<Widget> _pages = [
     const HomePage(),
+    const OrdersHistoryPage(),
     // const Center(child: Text('This is page 1')),
     // const Center(child: Text('This is page 2')),
     // const Center(child: Text('This is page 3')),
     // const Center(child: Text('This is page 4')),
-    const SettingsPage()
+    const Test()
   ];
 
   void _onItemTapped(int index) {
@@ -52,12 +54,10 @@ class _DashboardPageState extends State<DashboardPage> {
             onPressed: () {
               if (scaffoldKey.currentState!.isDrawerOpen) {
                 scaffoldKey.currentState!.closeDrawer();
-                //close drawer, if drawer is open
               } else {
                 scaffoldKey.currentState!.openDrawer();
-                //open drawer, if drawer is closed
               }
-            }, // Buka drawer saat ikon diklik
+            },
           ),
           title: const HomeTitle(),
         ),
@@ -91,10 +91,15 @@ class _DashboardPageState extends State<DashboardPage> {
                               isActive: _selectedIndex == 0,
                               onTap: () => _onItemTapped(0),
                             ),
+                            NavItem(
+                              iconPath: Assets.icons.setting.path,
+                              isActive: _selectedIndex == 1,
+                              onTap: () => _onItemTapped(1),
+                            ),
                             // NavItem(
                             //   iconPath: Assets.icons.setting.path,
-                            //   isActive: _selectedIndex == 1,
-                            //   onTap: () => _onItemTapped(1),
+                            //   isActive: _selectedIndex == 2,
+                            //   onTap: () => _onItemTapped(2),
                             // ),
                             // // if (Platform.isWindows)
                             // NavItem(

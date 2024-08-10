@@ -14,23 +14,27 @@ class SaveDraft extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding:
-              const EdgeInsets.fromLTRB(30, 0, 30, 0), // Padding untuk ListTile
+          margin: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Row(
             children: [
+              Text(
+                '${data.quantity}x ',
+                style: const TextStyle(
+                  fontSize: 15.0,
+                ),
+              ),
               Expanded(
                 child: Text(
                   data.product.name!,
-                  overflow: TextOverflow
-                      .ellipsis, // Menangani overflow jika diperlukan
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
-                    fontSize: 17.0,
+                    fontSize: 15.0,
                   ),
                 ),
               ),
             ],
           ),
-        ), // Spasi vertikal setelah ListTile
+        ),
       ],
     );
   }

@@ -49,6 +49,7 @@ dependencies:
   sqflite: ^2.3.2+1
   sqflite_common_ffi: ^2.0.1+1
   money2: ^3.4.0
+  connectivity_plus: ^2.3.0
  
 
 dev_dependencies:

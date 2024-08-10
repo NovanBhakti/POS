@@ -35,6 +35,8 @@ class _ConfirmPaymentPageState extends State<ConfirmPaymentPage> {
     precision: 0,
     leftSymbol: 'Rp ',
   );
+  final methodController = TextEditingController();
+  String selectedMethod = '';
 
   void _setPrice(String price) {
     setState(() {
@@ -99,23 +101,6 @@ class _ConfirmPaymentPageState extends State<ConfirmPaymentPage> {
                                   ),
                                 ),
                               ],
-                            ),
-                            GestureDetector(
-                              onTap: () => context.pop(),
-                              child: Container(
-                                padding: const EdgeInsets.all(16.0),
-                                height: 60.0,
-                                width: 60.0,
-                                decoration: const BoxDecoration(
-                                  color: AppColors.primary,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(8.0)),
-                                ),
-                                child: const Icon(
-                                  Icons.add,
-                                  color: AppColors.white,
-                                ),
-                              ),
                             ),
                           ],
                         ),
@@ -391,7 +376,6 @@ class _ConfirmPaymentPageState extends State<ConfirmPaymentPage> {
                                     return discount.name!;
                                   },
                                 );
-
                                 final discountType = state.maybeWhen(
                                   orElse: () => '',
                                   loaded: (products, drafts, discount, tax,
@@ -700,7 +684,7 @@ class _ConfirmPaymentPageState extends State<ConfirmPaymentPage> {
                               ),
                             ),
                             const Text(
-                              '1 opsi pembayaran tersedia',
+                              '7 opsi pembayaran tersedia',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
@@ -720,23 +704,191 @@ class _ConfirmPaymentPageState extends State<ConfirmPaymentPage> {
                             const SpaceHeight(12.0),
                             BlocBuilder<CheckoutBloc, CheckoutState>(
                               builder: (context, state) {
-                                return Row(
-                                  children: [
-                                    Button.filled(
-                                      width: 120.0,
-                                      height: 50.0,
-                                      onPressed: () {},
-                                      label: 'Cash',
-                                    ),
-                                    const SpaceWidth(8.0),
-                                    // Button.outlined(
-                                    //   width: 120.0,
-                                    //   height: 50.0,
-                                    //   onPressed: () {},
-                                    //   label: 'QRIS',
-                                    //   disabled: true,
-                                    // ),
-                                  ],
+                                return SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: [
+                                      selectedMethod == 'Cash'
+                                          ? Button.filled(
+                                              width: 120.0,
+                                              height: 50.0,
+                                              onPressed: () {
+                                                setState(() {
+                                                  selectedMethod = 'Cash';
+                                                  methodController.text =
+                                                      'Cash';
+                                                });
+                                              },
+                                              label: 'Cash',
+                                            )
+                                          : Button.outlined(
+                                              width: 120.0,
+                                              height: 50.0,
+                                              onPressed: () {
+                                                setState(() {
+                                                  selectedMethod = 'Cash';
+                                                  methodController.text =
+                                                      'Cash';
+                                                });
+                                              },
+                                              label: 'Cash',
+                                            ),
+                                      const SpaceWidth(8.0),
+                                      selectedMethod == 'Debit'
+                                          ? Button.filled(
+                                              width: 120.0,
+                                              height: 50.0,
+                                              onPressed: () {
+                                                setState(() {
+                                                  selectedMethod = 'Debit';
+                                                  methodController.text =
+                                                      'Debit';
+                                                });
+                                              },
+                                              label: 'Debit',
+                                            )
+                                          : Button.outlined(
+                                              width: 120.0,
+                                              height: 50.0,
+                                              onPressed: () {
+                                                setState(() {
+                                                  selectedMethod = 'Debit';
+                                                  methodController.text =
+                                                      'Debit';
+                                                });
+                                              },
+                                              label: 'Debit',
+                                            ),
+                                      const SpaceWidth(8.0),
+                                      selectedMethod == 'Credit'
+                                          ? Button.filled(
+                                              width: 120.0,
+                                              height: 50.0,
+                                              onPressed: () {
+                                                setState(() {
+                                                  selectedMethod = 'Credit';
+                                                  methodController.text =
+                                                      'Credit';
+                                                });
+                                              },
+                                              label: 'Credit',
+                                            )
+                                          : Button.outlined(
+                                              width: 120.0,
+                                              height: 50.0,
+                                              onPressed: () {
+                                                setState(() {
+                                                  selectedMethod = 'Credit';
+                                                  methodController.text =
+                                                      'Credit';
+                                                });
+                                              },
+                                              label: 'Credit',
+                                            ),
+                                      const SpaceWidth(8.0),
+                                      selectedMethod == 'QRIS'
+                                          ? Button.filled(
+                                              width: 120.0,
+                                              height: 50.0,
+                                              onPressed: () {
+                                                setState(() {
+                                                  selectedMethod = 'QRIS';
+                                                  methodController.text =
+                                                      'QRIS';
+                                                });
+                                              },
+                                              label: 'QRIS',
+                                            )
+                                          : Button.outlined(
+                                              width: 120.0,
+                                              height: 50.0,
+                                              onPressed: () {
+                                                setState(() {
+                                                  selectedMethod = 'QRIS';
+                                                  methodController.text =
+                                                      'QRIS';
+                                                });
+                                              },
+                                              label: 'QRIS',
+                                            ),
+                                      const SpaceWidth(8.0),
+                                      selectedMethod == 'E-Wallet'
+                                          ? Button.filled(
+                                              width: 120.0,
+                                              height: 50.0,
+                                              onPressed: () {
+                                                setState(() {
+                                                  selectedMethod = 'E-Wallet';
+                                                  methodController.text =
+                                                      'E-Wallet';
+                                                });
+                                              },
+                                              label: 'E-Wallet',
+                                            )
+                                          : Button.outlined(
+                                              width: 120.0,
+                                              height: 50.0,
+                                              onPressed: () {
+                                                setState(() {
+                                                  selectedMethod = 'E-Wallet';
+                                                  methodController.text =
+                                                      'E-Wallet';
+                                                });
+                                              },
+                                              label: 'E-Wallet',
+                                            ),
+                                      const SpaceWidth(8.0),
+                                      selectedMethod == 'Transfer'
+                                          ? Button.filled(
+                                              width: 120.0,
+                                              height: 50.0,
+                                              onPressed: () {
+                                                setState(() {
+                                                  selectedMethod = 'Transfer';
+                                                  methodController.text =
+                                                      'Transfer';
+                                                });
+                                              },
+                                              label: 'Transfer',
+                                            )
+                                          : Button.outlined(
+                                              width: 120.0,
+                                              height: 50.0,
+                                              onPressed: () {
+                                                setState(() {
+                                                  selectedMethod = 'Transfer';
+                                                  methodController.text =
+                                                      'Transfer';
+                                                });
+                                              },
+                                              label: 'Transfer',
+                                            ),
+                                      const SpaceWidth(8.0),
+                                      selectedMethod == 'VA'
+                                          ? Button.filled(
+                                              width: 120.0,
+                                              height: 50.0,
+                                              onPressed: () {
+                                                setState(() {
+                                                  selectedMethod = 'VA';
+                                                  methodController.text = 'VA';
+                                                });
+                                              },
+                                              label: 'VA',
+                                            )
+                                          : Button.outlined(
+                                              width: 120.0,
+                                              height: 50.0,
+                                              onPressed: () {
+                                                setState(() {
+                                                  selectedMethod = 'VA';
+                                                  methodController.text = 'VA';
+                                                });
+                                              },
+                                              label: 'VA',
+                                            ),
+                                    ],
+                                  ),
                                 );
                               },
                             ),
@@ -853,54 +1005,119 @@ class _ConfirmPaymentPageState extends State<ConfirmPaymentPage> {
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
                                     children: [
-                                      Button.filled(
-                                        width: 150.0,
-                                        onPressed: () {
-                                          totalPriceController.text =
-                                              total.ceil().toString();
-                                        },
-                                        label: 'UANG PAS',
-                                      ),
+                                      selectedMethod == 'Cash'
+                                          ? Button.filled(
+                                              width: 150.0,
+                                              onPressed: () {
+                                                totalPriceController.text =
+                                                    total.ceil().toString();
+                                              },
+                                              label: 'UANG PAS',
+                                            )
+                                          : Button.outlined(
+                                              width: 150.0,
+                                              onPressed: () {
+                                                totalPriceController.text =
+                                                    total.ceil().toString();
+                                              },
+                                              label: 'UANG PAS',
+                                              disabled: true,
+                                            ),
                                       const SizedBox(width: 20.0),
-                                      Button.filled(
-                                        width: 150.0,
-                                        onPressed: () {
-                                          totalPriceController.text = '20000';
-                                        },
-                                        label: 'Rp 20.000',
-                                      ),
+                                      selectedMethod == 'Cash'
+                                          ? Button.filled(
+                                              width: 150.0,
+                                              onPressed: () {
+                                                totalPriceController.text =
+                                                    '20000';
+                                              },
+                                              label: 'Rp 20.000',
+                                            )
+                                          : Button.outlined(
+                                              width: 150.0,
+                                              onPressed: () {
+                                                totalPriceController.text =
+                                                    '20000';
+                                              },
+                                              label: 'Rp 20.000',
+                                              disabled: true,
+                                            ),
                                       const SizedBox(width: 20.0),
-                                      Button.filled(
-                                        width: 150.0,
-                                        onPressed: () {
-                                          totalPriceController.text = '50000';
-                                        },
-                                        label: 'Rp 50.000',
-                                      ),
+                                      selectedMethod == 'Cash'
+                                          ? Button.filled(
+                                              width: 150.0,
+                                              onPressed: () {
+                                                totalPriceController.text =
+                                                    '50000';
+                                              },
+                                              label: 'Rp 50.000',
+                                            )
+                                          : Button.outlined(
+                                              width: 150.0,
+                                              onPressed: () {
+                                                totalPriceController.text =
+                                                    '50000';
+                                              },
+                                              label: 'Rp 50.000',
+                                              disabled: true,
+                                            ),
                                       const SizedBox(width: 20.0),
-                                      Button.filled(
-                                        width: 150.0,
-                                        onPressed: () {
-                                          totalPriceController.text = '100000';
-                                        },
-                                        label: 'Rp 100.000',
-                                      ),
+                                      selectedMethod == 'Cash'
+                                          ? Button.filled(
+                                              width: 150.0,
+                                              onPressed: () {
+                                                totalPriceController.text =
+                                                    '100000';
+                                              },
+                                              label: 'Rp 100.000',
+                                            )
+                                          : Button.outlined(
+                                              width: 150.0,
+                                              onPressed: () {
+                                                totalPriceController.text =
+                                                    '100000';
+                                              },
+                                              label: 'Rp 100.000',
+                                              disabled: true,
+                                            ),
                                       const SizedBox(width: 20.0),
-                                      Button.filled(
-                                        width: 150.0,
-                                        onPressed: () {
-                                          totalPriceController.text = '150000';
-                                        },
-                                        label: 'Rp 150.000',
-                                      ),
+                                      selectedMethod == 'Cash'
+                                          ? Button.filled(
+                                              width: 150.0,
+                                              onPressed: () {
+                                                totalPriceController.text =
+                                                    '150000';
+                                              },
+                                              label: 'Rp 150.000',
+                                            )
+                                          : Button.outlined(
+                                              width: 150.0,
+                                              onPressed: () {
+                                                totalPriceController.text =
+                                                    '150000';
+                                              },
+                                              label: 'Rp 150.000',
+                                              disabled: true,
+                                            ),
                                       const SizedBox(width: 20.0),
-                                      Button.filled(
-                                        width: 150.0,
-                                        onPressed: () {
-                                          totalPriceController.text = '200000';
-                                        },
-                                        label: 'Rp 200.000',
-                                      ),
+                                      selectedMethod == 'Cash'
+                                          ? Button.filled(
+                                              width: 150.0,
+                                              onPressed: () {
+                                                totalPriceController.text =
+                                                    '200000';
+                                              },
+                                              label: 'Rp 200.000',
+                                            )
+                                          : Button.outlined(
+                                              width: 150.0,
+                                              onPressed: () {
+                                                totalPriceController.text =
+                                                    '200000';
+                                              },
+                                              label: 'Rp 200.000',
+                                              disabled: true,
+                                            ),
                                     ],
                                   ),
                                 );
@@ -922,7 +1139,7 @@ class _ConfirmPaymentPageState extends State<ConfirmPaymentPage> {
                                 Flexible(
                                   child: Button.outlined(
                                     onPressed: () => context.pop(),
-                                    label: 'Batalkan',
+                                    label: 'Kembali',
                                   ),
                                 ),
                                 const SpaceWidth(8.0),
@@ -1068,6 +1285,7 @@ class _ConfirmPaymentPageState extends State<ConfirmPaymentPage> {
                                                   finalServiceCharge.toInt(),
                                                   totalPriceController
                                                       .text.toIntegerFromText,
+                                                  methodController.text,
                                                 ));
                                             await showDialog(
                                               // ignore: use_build_context_synchronously

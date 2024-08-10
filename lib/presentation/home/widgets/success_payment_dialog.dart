@@ -8,6 +8,7 @@ import 'package:flutter_posresto_app/presentation/home/bloc/bloc/order/order_blo
 import 'package:flutter_posresto_app/presentation/home/widgets/send_email.dart';
 import 'package:flutter_posresto_app/presentation/setting/bloc/sync_order/sync_order_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 import '../../../core/assets/assets.gen.dart';
 import '../../../core/components/buttons.dart';

@@ -4,12 +4,14 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_posresto_app/core/extensions/build_context_ext.dart';
 import 'package:flutter_posresto_app/core/extensions/int_ext.dart';
 import 'package:flutter_posresto_app/core/extensions/string_ext.dart';
+import 'package:flutter_posresto_app/data/datasources/order_remote_datasource.dart';
 import 'package:flutter_posresto_app/data/datasources/product_local_datasource.dart';
 import 'package:flutter_posresto_app/data/models/response/product_response_models.dart';
 import 'package:flutter_posresto_app/presentation/home/bloc/bloc/checkout_bloc.dart';
 import 'package:flutter_posresto_app/presentation/home/bloc/bloc/local_product_bloc.dart';
 import 'package:flutter_posresto_app/presentation/home/dialog/discount_dialog.dart';
 import 'package:flutter_posresto_app/presentation/home/dialog/tax_dialog.dart';
+import 'package:flutter_posresto_app/presentation/home/models/order_model.dart';
 import 'package:flutter_posresto_app/presentation/home/pages/confirm_payment_page.dart';
 import 'package:flutter_posresto_app/presentation/home/widgets/draft.dart';
 import 'package:flutter_posresto_app/presentation/setting/bloc/sync_product/sync_product_bloc.dart';
@@ -34,6 +36,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int currentIndex = 0;
+  bool internetCheck = false;
+  List dataHistoryOrders = [];
   final searchController = TextEditingController();
   final totalPriceController = MoneyMaskedTextController(
     initialValue: 0,
@@ -74,6 +79,26 @@ class _HomePageState extends State<HomePage> {
     context.read<SyncProductBloc>().add(const SyncProductEvent.syncProduct());
   }
 
+  Future<void> fetchData() async {
+    try {
+      final res = await OrderRemoteDatasource().getOrderHistory();
+      setState(() {
+        dataHistoryOrders = res['data'];
+      });
+
+      for (var data in dataHistoryOrders) {
+        await ProductLocalDatasource.instance
+            .saveOrder(OrderModel.fromMap(data));
+      }
+    } catch (e) {
+      final res = await ProductLocalDatasource.instance.getOrdersDynamic();
+      setState(() {
+        dataHistoryOrders = res;
+      });
+      print(res.toString());
+    }
+  }
+
   void onCategoryTap(int index) {
     searchController.clear();
     // if (index == 0) {
@@ -95,7 +120,7 @@ class _HomePageState extends State<HomePage> {
     // }
     final formattedDate = DateFormat('yyMMddHHmmss').format(DateTime.now());
     return Hero(
-      tag: 'confirmation_screen',
+      tag: 'homepage_screen',
       child: Scaffold(
         body: Row(
           children: [
@@ -334,16 +359,67 @@ class _HomePageState extends State<HomePage> {
                               const SpaceWidth(8.0),
                               BlocBuilder<LocalProductBloc, LocalProductState>(
                                 builder: (context, state) {
-                                  return Button.outlined(
-                                    width: 100.0,
-                                    height: 40,
-                                    onPressed: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) => const Draft(),
+                                  return BlocBuilder<CheckoutBloc,
+                                      CheckoutState>(
+                                    builder: (context, state) {
+                                      final draft = state.maybeWhen(
+                                        orElse: () => '0',
+                                        loaded: (items, drafts, discount, tax,
+                                                serviceCharge) =>
+                                            drafts.length,
+                                      );
+                                      return Stack(
+                                        children: [
+                                          OutlinedButton(
+                                            style: OutlinedButton.styleFrom(
+                                              minimumSize:
+                                                  const Size(150.0, 40),
+                                              padding: EdgeInsets.zero,
+                                            ),
+                                            onPressed: () {
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) =>
+                                                    const Draft(),
+                                              );
+                                            },
+                                            child: const Text(
+                                              'Draft',
+                                              style: TextStyle(
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.bold,
+                                                color: AppColors.primary,
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            right: 10,
+                                            bottom: 12,
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      const Draft(),
+                                                );
+                                              },
+                                              child: CircleAvatar(
+                                                radius: 13.0,
+                                                backgroundColor:
+                                                    AppColors.primary,
+                                                child: Text(
+                                                  '$draft',
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14.0,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       );
                                     },
-                                    label: 'Draft',
                                   );
                                 },
                               ),
@@ -580,8 +656,8 @@ class _HomePageState extends State<HomePage> {
 
                                   return Expanded(
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .spaceBetween, // Adds space between the elements
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           '$taxName ( $taxValue % )',
@@ -775,8 +851,8 @@ class _HomePageState extends State<HomePage> {
                                       subTotal * serviceChargeValue / 100;
                                   return Expanded(
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .spaceBetween, // Adds space between the elements
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           ' $serviceChargeName ( $serviceChargeValue % )',
@@ -927,37 +1003,89 @@ class _HomePageState extends State<HomePage> {
                                 children: [
                                   Flexible(
                                     child: Button.outlined(
-                                      onPressed: () => context
-                                          .read<CheckoutBloc>()
-                                          .add(const CheckoutEvent.started()),
+                                      onPressed: () async {
+                                        bool? confirmDelete = await showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title:
+                                                  const Text('Confirm Delete'),
+                                              content: const Text(
+                                                  'Are you sure you want to delete this item?'),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  child: const Text('Cancel'),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop(
+                                                        false); // Return false to indicate cancellation
+                                                  },
+                                                ),
+                                                TextButton(
+                                                  child: const Text('Delete'),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop(
+                                                        true); // Return true to indicate confirmation
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+
+                                        if (confirmDelete == true) {
+                                          context.read<CheckoutBloc>().add(
+                                              const CheckoutEvent.started());
+                                        }
+                                      },
                                       icon: const Icon(
                                         Icons.delete,
                                         color: AppColors.red,
-                                      ), // Add the delete icon
+                                      ),
                                       label: 'Delete',
                                     ),
                                   ),
-                                  const SizedBox(
-                                      width: 10.0), // Horizontal spacing
+                                  const SizedBox(width: 10.0),
                                   Flexible(
                                     child: Button.outlined(
                                       onPressed: () {
                                         context.read<CheckoutBloc>().add(
                                             const CheckoutEvent.saveToDraft());
+
+                                        // Show a SnackBar notification
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                                'Draft saved successfully!'),
+                                            backgroundColor: AppColors.green,
+                                          ),
+                                        );
                                       },
-                                      label: 'Save Draft',
+                                      label: 'Add to Draft',
                                     ),
-                                  ),
+                                  )
                                 ],
                               ),
-                              const SizedBox(height: 8.0), // Vertical spacing
-                              Flexible(
-                                child: Button.filled(
-                                  onPressed: () {
-                                    context.push(const ConfirmPaymentPage());
-                                  },
-                                  label: 'Lanjutkan Pembayaran',
-                                ),
+                              const SizedBox(height: 8.0),
+                              BlocBuilder<CheckoutBloc, CheckoutState>(
+                                builder: (context, state) {
+                                  final productCount = state.maybeWhen(
+                                    orElse: () => 0,
+                                    loaded: (products, drafts, discount, tax,
+                                            service) =>
+                                        products.length,
+                                  );
+                                  return Flexible(
+                                    child: Button.filled(
+                                      onPressed: () {
+                                        context
+                                            .push(const ConfirmPaymentPage());
+                                      },
+                                      label: 'Lanjutkan Pembayaran',
+                                      disabled: productCount == 0,
+                                    ),
+                                  );
+                                },
                               ),
                             ],
                           ),

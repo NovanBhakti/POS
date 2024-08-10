@@ -20,7 +20,7 @@ mixin _$OrderEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(List<ProductQuantity> items, int discount,
-            int tax, int serviceCharge, int paymentAmount)
+            int tax, int serviceCharge, int paymentAmount, String paymentMethod)
         order,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$OrderEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(List<ProductQuantity> items, int discount, int tax,
-            int serviceCharge, int paymentAmount)?
+            int serviceCharge, int paymentAmount, String paymentMethod)?
         order,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$OrderEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(List<ProductQuantity> items, int discount, int tax,
-            int serviceCharge, int paymentAmount)?
+            int serviceCharge, int paymentAmount, String paymentMethod)?
         order,
     required TResult orElse(),
   }) =>
@@ -126,7 +126,7 @@ class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(List<ProductQuantity> items, int discount,
-            int tax, int serviceCharge, int paymentAmount)
+            int tax, int serviceCharge, int paymentAmount, String paymentMethod)
         order,
   }) {
     return started();
@@ -137,7 +137,7 @@ class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(List<ProductQuantity> items, int discount, int tax,
-            int serviceCharge, int paymentAmount)?
+            int serviceCharge, int paymentAmount, String paymentMethod)?
         order,
   }) {
     return started?.call();
@@ -148,7 +148,7 @@ class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(List<ProductQuantity> items, int discount, int tax,
-            int serviceCharge, int paymentAmount)?
+            int serviceCharge, int paymentAmount, String paymentMethod)?
         order,
     required TResult orElse(),
   }) {
@@ -205,7 +205,8 @@ abstract class _$$OrderImplCopyWith<$Res> {
       int discount,
       int tax,
       int serviceCharge,
-      int paymentAmount});
+      int paymentAmount,
+      String paymentMethod});
 }
 
 /// @nodoc
@@ -224,6 +225,7 @@ class __$$OrderImplCopyWithImpl<$Res>
     Object? tax = null,
     Object? serviceCharge = null,
     Object? paymentAmount = null,
+    Object? paymentMethod = null,
   }) {
     return _then(_$OrderImpl(
       null == items
@@ -246,6 +248,10 @@ class __$$OrderImplCopyWithImpl<$Res>
           ? _value.paymentAmount
           : paymentAmount // ignore: cast_nullable_to_non_nullable
               as int,
+      null == paymentMethod
+          ? _value.paymentMethod
+          : paymentMethod // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -254,7 +260,7 @@ class __$$OrderImplCopyWithImpl<$Res>
 
 class _$OrderImpl with DiagnosticableTreeMixin implements _Order {
   const _$OrderImpl(final List<ProductQuantity> items, this.discount, this.tax,
-      this.serviceCharge, this.paymentAmount)
+      this.serviceCharge, this.paymentAmount, this.paymentMethod)
       : _items = items;
 
   final List<ProductQuantity> _items;
@@ -273,10 +279,12 @@ class _$OrderImpl with DiagnosticableTreeMixin implements _Order {
   final int serviceCharge;
   @override
   final int paymentAmount;
+  @override
+  final String paymentMethod;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'OrderEvent.order(items: $items, discount: $discount, tax: $tax, serviceCharge: $serviceCharge, paymentAmount: $paymentAmount)';
+    return 'OrderEvent.order(items: $items, discount: $discount, tax: $tax, serviceCharge: $serviceCharge, paymentAmount: $paymentAmount, paymentMethod: $paymentMethod)';
   }
 
   @override
@@ -288,7 +296,8 @@ class _$OrderImpl with DiagnosticableTreeMixin implements _Order {
       ..add(DiagnosticsProperty('discount', discount))
       ..add(DiagnosticsProperty('tax', tax))
       ..add(DiagnosticsProperty('serviceCharge', serviceCharge))
-      ..add(DiagnosticsProperty('paymentAmount', paymentAmount));
+      ..add(DiagnosticsProperty('paymentAmount', paymentAmount))
+      ..add(DiagnosticsProperty('paymentMethod', paymentMethod));
   }
 
   @override
@@ -303,7 +312,9 @@ class _$OrderImpl with DiagnosticableTreeMixin implements _Order {
             (identical(other.serviceCharge, serviceCharge) ||
                 other.serviceCharge == serviceCharge) &&
             (identical(other.paymentAmount, paymentAmount) ||
-                other.paymentAmount == paymentAmount));
+                other.paymentAmount == paymentAmount) &&
+            (identical(other.paymentMethod, paymentMethod) ||
+                other.paymentMethod == paymentMethod));
   }
 
   @override
@@ -313,7 +324,8 @@ class _$OrderImpl with DiagnosticableTreeMixin implements _Order {
       discount,
       tax,
       serviceCharge,
-      paymentAmount);
+      paymentAmount,
+      paymentMethod);
 
   @JsonKey(ignore: true)
   @override
@@ -326,10 +338,11 @@ class _$OrderImpl with DiagnosticableTreeMixin implements _Order {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(List<ProductQuantity> items, int discount,
-            int tax, int serviceCharge, int paymentAmount)
+            int tax, int serviceCharge, int paymentAmount, String paymentMethod)
         order,
   }) {
-    return order(items, discount, tax, serviceCharge, paymentAmount);
+    return order(
+        items, discount, tax, serviceCharge, paymentAmount, paymentMethod);
   }
 
   @override
@@ -337,10 +350,11 @@ class _$OrderImpl with DiagnosticableTreeMixin implements _Order {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(List<ProductQuantity> items, int discount, int tax,
-            int serviceCharge, int paymentAmount)?
+            int serviceCharge, int paymentAmount, String paymentMethod)?
         order,
   }) {
-    return order?.call(items, discount, tax, serviceCharge, paymentAmount);
+    return order?.call(
+        items, discount, tax, serviceCharge, paymentAmount, paymentMethod);
   }
 
   @override
@@ -348,12 +362,13 @@ class _$OrderImpl with DiagnosticableTreeMixin implements _Order {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(List<ProductQuantity> items, int discount, int tax,
-            int serviceCharge, int paymentAmount)?
+            int serviceCharge, int paymentAmount, String paymentMethod)?
         order,
     required TResult orElse(),
   }) {
     if (order != null) {
-      return order(items, discount, tax, serviceCharge, paymentAmount);
+      return order(
+          items, discount, tax, serviceCharge, paymentAmount, paymentMethod);
     }
     return orElse();
   }
@@ -396,13 +411,15 @@ abstract class _Order implements OrderEvent {
       final int discount,
       final int tax,
       final int serviceCharge,
-      final int paymentAmount) = _$OrderImpl;
+      final int paymentAmount,
+      final String paymentMethod) = _$OrderImpl;
 
   List<ProductQuantity> get items;
   int get discount;
   int get tax;
   int get serviceCharge;
   int get paymentAmount;
+  String get paymentMethod;
   @JsonKey(ignore: true)
   _$$OrderImplCopyWith<_$OrderImpl> get copyWith =>
       throw _privateConstructorUsedError;

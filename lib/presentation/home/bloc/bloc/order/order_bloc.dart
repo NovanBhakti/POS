@@ -35,7 +35,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         discount: event.discount,
         serviceCharge: event.serviceCharge,
         total: total,
-        paymentMethod: 'Cash',
+        paymentMethod: event.paymentMethod,
         totalItem: totalItem,
         idKasir: userData.user!.id!,
         namaKasir: userData.user!.name!,

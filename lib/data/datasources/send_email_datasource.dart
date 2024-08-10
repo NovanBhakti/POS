@@ -1,23 +1,69 @@
+import 'package:flutter_posresto_app/core/extensions/int_ext.dart';
+import 'package:flutter_posresto_app/core/extensions/string_ext.dart';
 import 'package:flutter_posresto_app/presentation/home/models/product_quantity.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server/gmail.dart';
 
-Future<void> sendToEmail(
-    String email, List<ProductQuantity> products, price) async {
+Future<void> sendToEmail(String email, List<ProductQuantity> products, discount,
+    tax, service, price, diff, subTotal, paymentAmount, paymentMethod) async {
   String productDetailsHTML = '';
+  var totalPrice = price.toString().toIntegerFromText.currencyFormatRp;
+  var discountValue = discount.toString().toIntegerFromText.currencyFormatRp;
+  var taxValue = tax.toString().toIntegerFromText.currencyFormatRp;
+  var serviceValue = service.toString().toIntegerFromText.currencyFormatRp;
+  var diffValue = diff.toString().toIntegerFromText.currencyFormatRp;
+  var subTotalValue = subTotal.toString().toIntegerFromText.currencyFormatRp;
+  var amountValue = paymentAmount.toString().toIntegerFromText.currencyFormatRp;
+
   for (var product in products) {
+    var formattedPrice =
+        product.product.price.toString().toIntegerFromText.currencyFormatRp;
     productDetailsHTML += '<tr class="item">'
         '<td>${product.product.name}</td>'
         '<td>${product.quantity}</td>'
-        '<td>${product.product.price}</td>'
+        '<td>$formattedPrice</td>'
         '</tr>';
   }
   String priceHTML = '<tr class="total">'
-      '<td>Total:</td>'
-      '<td>${price}</td>'
+      '<td><strong>Total:</strong></td>'
+      '<td><strong>$totalPrice</strong></td>'
       '</tr>';
 
-  // String HTML untuk email
+  String discountHTML = '<tr class="total">'
+      '<td>Discount:</td>'
+      '<td>$discountValue</td>'
+      '</tr>';
+
+  String taxHTML = '<tr class="total">'
+      '<td>Tax:</td>'
+      '<td>$taxValue</td>'
+      '</tr>';
+
+  String serviceHTML = '<tr class="total">'
+      '<td>Service Charge:</td>'
+      '<td>$serviceValue</td>'
+      '</tr>';
+
+  String subTotalHTML = '<tr class="total">'
+      '<td>Sub Total:</td>'
+      '<td>$subTotalValue</td>'
+      '</tr>';
+
+  String methodHTML = '';
+  if (paymentMethod == 'Cash') {
+    methodHTML = '<tr class="total">'
+        '<td>$paymentMethod</td>'
+        '<td>$amountValue</td>'
+        '</tr>';
+  }
+  String diffHTML = '';
+  if (diff == '0') {
+    diffHTML = '<tr class="total">'
+        '<td>Charge:</td>'
+        '<td>$diffValue</td>'
+        '</tr>';
+  }
+
   String emailHTML = '''
     <html>
     <head>
@@ -108,7 +154,7 @@ Future<void> sendToEmail(
 			}
 
 			.invoice-box table tr.total td:nth-child(2) {
-				border-top: 2px solid #eee;
+				border-top: 4px solid #eee;
 				font-weight: bold;
 			}
 
@@ -130,15 +176,23 @@ Future<void> sendToEmail(
     <body>
       <div class="invoice-box">
         <h1>Invoice</h1>
-        <table>
+        <hr>
+        <table cellpadding="0" cellspacing="0">
           <tr class="heading">
-            <td>Item</td>
-            <td>Quantity</td>
-            <td>Price</td>
+            <td>Produk</td>
+            <td>Jumlah</td>
+            <td>Harga</td>
           </tr>
           $productDetailsHTML
+        <hr>
+          $subTotalHTML
+          $discountHTML
+          $taxHTML
+          $serviceHTML
+          <hr>
           $priceHTML
-        </table>
+          $methodHTML
+          $diffHTML
       </div>
     </body>
     </html>
@@ -150,11 +204,8 @@ Future<void> sendToEmail(
   final message = Message()
     ..from = Address(username, 'Novan Nur Bhakti')
     ..recipients.add(email)
-    ..subject = 'Test Dart Mailer library :: 😀 :: ${DateTime.now()}'
-    ..text = 'This is the plain text.\nThis is line 2 of the text part.'
-    ..html = '<h1>Detail Produk Pembelian:</h1>'
-        '<p>Berikut adalah detail produk yang Anda beli:</p>'
-        '$emailHTML';
+    ..subject = 'Invoice Pembelian ${DateTime.now()}'
+    ..html = '$emailHTML';
 
   try {
     final sendReport = await send(message, smtpServer);

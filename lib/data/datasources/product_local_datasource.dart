@@ -89,11 +89,22 @@ class ProductLocalDatasource {
   //save order
   Future<void> saveOrder(OrderModel order) async {
     final db = await instance.database;
-    int id = await db.insert(tableOrder, order.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
-    for (var item in order.orderItems) {
-      await db.insert(tableOrderItem, item.toLocalMap(id),
+
+    var existingOrder = await db.query(
+      tableOrder,
+      where: 'id = ?',
+      whereArgs: [order.id],
+    );
+
+    if (existingOrder.isEmpty) {
+      int id = await db.insert(tableOrder, order.toMap(),
           conflictAlgorithm: ConflictAlgorithm.replace);
+      for (var item in order.orderItems) {
+        await db.insert(tableOrderItem, item.toLocalMap(id),
+            conflictAlgorithm: ConflictAlgorithm.replace);
+      }
+    } else {
+      print('Order already exists with ID: ${order.id}');
     }
   }
 
@@ -114,6 +125,14 @@ class ProductLocalDatasource {
     return List.generate(maps.length, (i) {
       return OrderModel.fromMap(maps[i]);
     });
+  }
+
+  Future<dynamic> getOrdersDynamic() async {
+    final db = await instance.database;
+    final List<Map<String, dynamic>> maps = await db.query(tableOrder);
+    // return List.generate(maps.length, (i) {
+    return maps;
+    // });
   }
 
   //get order item by order id
